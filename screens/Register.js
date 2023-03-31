@@ -205,7 +205,7 @@ export default function Register ({navigation}){
       {/*Login Button & Social Login Buttons View */}
       <View style={{height:30,justifyContent:'center',alignItems:'center'}}>
         <TouchableOpacity  onPress={handleSubmit} rounded  disabled={!isValid} style={[styles.loginBtn,styles.shadowBtn,{shadowColor:'#00acee',backgroundColor:isValid? '#001833':'#cacfd2'}]} >
-          <Text style={{color:'#ffffff',marginTop:5,fontWeight:'bold'}}>Login</Text>
+          <Text style={{color:'#ffffff',marginTop:5,fontWeight:'bold'}}>Register</Text>
         </TouchableOpacity>
       </View>
       <View style={{flex:1}}>
