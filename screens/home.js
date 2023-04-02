@@ -67,8 +67,8 @@ const styles =StyleSheet.create({
        
     },photo:{
       justifyContent:'center',
-     marginLeft:-23,
-     marginTop:-23,
+     marginLeft:-24,
+     marginTop:-24,
       width:Dimensions.get('window').width,
       height:Dimensions.get('window').height,
 
