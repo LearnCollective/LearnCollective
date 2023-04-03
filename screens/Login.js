@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, alert, TouchableOpacity, Image, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { StyleSheet, Alert, TouchableOpacity, Image, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions } from 'react-native';
+import { getAuth, signInWithEmailAndPassword, } from "firebase/auth";
+
 import { auth } from "../firebase/firebase_config";
 import { CheckBox, Input } from 'react-native-elements';
 import photo2 from '../assets/back.jpg'
@@ -30,11 +31,13 @@ export default function Login({ navigation }) {
     navigation.navigate('REGISTER');
   }
   const press2 = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Forgetpassword');
   }
   const [count, setcont] = useState(0);
   const image = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBR9MAw997U9x7Vjx0uQ4HFmMW9MM8ftj1NA&usqp=CAU' };
 
+
+  
   const increment = () => {
     setcont(count + 1);
   }
@@ -49,15 +52,17 @@ export default function Login({ navigation }) {
         signInWithEmailAndPassword(auth, values.email, values.password)
           .then((userCredential) => {
             // Signed in 
+           
             const user = userCredential.user;
             // ...
+
             navigation.push('Home');
-
-
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            
+            Alert.alert('Your Password or Email is incorrect');
 
           });
 
@@ -115,7 +120,7 @@ export default function Login({ navigation }) {
 
                     <Input onChangeText={handleChange('email')}
                       onBlur={handleBlur('email')} value={values.email}
-                      keyboardType='email-address' />
+                    />
 
                     <Icon name={!errors.email ? 'check' : 'close'} style={{ color: !errors.email ? '#4632A1' : 'red' }} />
                   </View>
@@ -161,7 +166,10 @@ export default function Login({ navigation }) {
 
                   <ListItem noBorder style={{ marginLeft: 65 }}>
                     <View>
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start' }}>Forget Password</Text>
+                      <TouchableOpacity
+                        onPress={press2} ><Text style={{ color: '#8f9195', alignSelf: 'flex-start' }}>
+                          Forget Password</Text>
+                      </TouchableOpacity>
                     </View>
                   </ListItem>
                 </View>
@@ -175,7 +183,7 @@ export default function Login({ navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'center', marginTop: 7 }}>or login with</Text>
+              <Text style={{ textAlign: 'center', marginTop: 20,fontWeight:'bold' }}>Or Login With</Text>
                 {/*social buttons view */}
                 <View style={styles.socialLoginView}>
                   <TouchableOpacity Icon style={[styles.shadowBtn, { backgroundColor: '#4267b2' }, { width: 55, height: 65 }]} rounded >
