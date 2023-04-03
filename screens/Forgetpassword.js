@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, alert, TouchableOpacity, Image, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Alert, TouchableOpacity, Image, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth";
 
 import { auth } from "../firebase/firebase_config";
@@ -43,9 +43,12 @@ export default function forgetpassword({ navigation }) {
       validateOnMount={true}
       onSubmit={values => {
         ////call sign In here
+
         sendPasswordResetEmail(auth,values.email)
   .then(() => {
     // Password reset email sent!
+    Alert.alert('Email sent');
+    navigation.navigate('SIGNIN');
     // ..
   })
   .catch((error) => {
