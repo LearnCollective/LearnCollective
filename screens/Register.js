@@ -195,18 +195,14 @@ export default function Register({ navigation }) {
                   <ListItem noBorder style={{ marginLeft: -20 }}>
                     <CheckBox onPress={() => setrememberme(!rememberMe)} checked={rememberMe} color='#4632A1'></CheckBox>
                     <View>
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: -20 }}>Remember Me</Text>
+                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: -30 }}>Remember Me</Text>
                     </View>
                   </ListItem>
                 </View>
 
                 <View style={{ flex: 1 }}>
 
-                  <ListItem noBorder style={{ marginLeft: 65 }}>
-                    <View>
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start' }}>Forget Password</Text>
-                    </View>
-                  </ListItem>
+
                 </View>
 
               </View>
@@ -218,7 +214,7 @@ export default function Register({ navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'center', marginTop: 7 }}>or login with</Text>
+                <Text style={{ textAlign: 'center', marginTop: 20,fontWeight:'bold' }}>Or Login With</Text>
                 {/*social buttons view */}
                 <View style={styles.socialLoginView}>
                   <TouchableOpacity Icon style={[styles.shadowBtn, { backgroundColor: '#4267b2' }, { width: 55, height: 65 }]} rounded >
