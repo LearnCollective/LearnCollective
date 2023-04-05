@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, alert, TouchableOpacity, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions, Image } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase_config";
+import { auth, provider } from "../firebase/firebase_config";
 import { CheckBox, Input } from 'react-native-elements';
 import photo2 from '../assets/back.jpg'
 import { ListItem, SocialIcon } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { marginTop, paddingBottom, width } from 'styled-system';
 
 
@@ -35,7 +36,7 @@ export default function Register({ navigation }) {
   const press2 = () => {
     navigation.navigate('Home');
   }
-  const signupWithGoogle = () => {
+  SignGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -214,10 +215,10 @@ export default function Register({ navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'center', marginTop: 20,fontWeight:'bold' }}>Or Login With</Text>
+                <Text style={{ textAlign: 'center', marginTop: 20, fontWeight: 'bold' }}>Or Login With</Text>
                 {/*social buttons view */}
                 <View style={styles.socialLoginView}>
-                  <TouchableOpacity Icon style={[styles.shadowBtn, { backgroundColor: '#4267b2' }, { width: 55, height: 65 }]} rounded >
+                  <TouchableOpacity Icon style={[styles.shadowBtn, { backgroundColor: '#4267b2' }, { width: 55, height: 65 }]} rounded  >
                     <SocialIcon button type='facebook' />
                   </TouchableOpacity>
 
@@ -226,7 +227,7 @@ export default function Register({ navigation }) {
                   </TouchableOpacity>
 
 
-                  <TouchableOpacity Icon style={[styles.shadowBtn, { backgroundColor: '#dd4a39' }, { width: 55, height: 65 }]} rounded >
+                  <TouchableOpacity onPress={SignGoogle} Icon style={[styles.shadowBtn, { backgroundColor: '#dd4a39' }, { width: 55, height: 65 }]} rounded >
                     <SocialIcon button type='google' />
                   </TouchableOpacity>
 
