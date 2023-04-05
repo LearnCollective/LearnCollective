@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import * as Font from 'expo-font' ;
+import * as Font from 'expo-font';
 import Home from './screens/home';
 import AppLoading from 'expo';
 import Navigator from './routes/homestack'
 import ReviewDetails from './screens/Login';
 import { StackActions } from 'react-navigation';
+import HomeTab from './screens/HomeTab';
 
 
 // const getFonts =()=>Font.loadAsync({
@@ -13,17 +14,18 @@ import { StackActions } from 'react-navigation';
 //   });
 
 export default function App() {
-  const [font,setfont]=useState(false);
-  
-    return ( 
-      
-      
-    <Navigator/> 
+  const [font, setfont] = useState(false);
+
+  return (
+
+
+    // <Navigator/> 
+    <HomeTab></HomeTab>
   );
-  
-  
-   
-  
+
+
+
+
 }
 
 
