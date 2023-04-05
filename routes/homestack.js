@@ -5,43 +5,44 @@ import Home from "../screens/home";
 import Register from "../screens/Register";
 import { NavigationContainer } from '@react-navigation/native';
 import forgetpassword from "../screens/Forgetpassword";
+import HomeTab from "../screens/HomeTab";
 
 
-const screens={  
-  SIGNIN:{
-        screen:Login,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: navigation.getParam('showHeader', false),
-          }),
-    },
-  
-  REGISTER:{
-        screen:Register,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: navigation.getParam('showHeader', false),
-          }),   
-    },
-
-
-   
-   
-    Home:{
-        screen:Home,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: navigation.getParam('showHeader', false),
-          }),
-    },
-    Forgetpassword:{
-      screen:forgetpassword,
-      navigationOptions: ({ navigation }) => ({
-          headerShown: navigation.getParam('showHeader', false),
-        }),
+const screens = {
+  SIGNIN: {
+    screen: Login,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
   },
-   
 
-    
+  REGISTER: {
+    screen: Register,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+  },
+
+  Home: {
+    screen: Home,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+  },
+
+
+
+  Forgetpassword: {
+    screen: forgetpassword,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+  },
+
+
+
 }
-const HomeStack=createStackNavigator(screens);
+const HomeStack = createStackNavigator(screens);
 
 
 export default createAppContainer(HomeStack);
