@@ -4,14 +4,10 @@ import { signOut } from "firebase/auth";
 import { globalstyles } from "../styles/global";
 import { auth } from "../firebase/firebase_config";
 export default function Profile({ navigation }) {
-    const press = () => {
-        navigation.push('SIGNIN');
-
-    }
     const signOuthandle = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigation.push('SIGNIN');
+            navigation.navigate('SIGNIN');
 
         }).catch((error) => {
             // An error happened.
@@ -26,7 +22,7 @@ export default function Profile({ navigation }) {
             <View style={globalstyles.container}>
 
                 <ImageBackground style={styles.photo}  >
-                    <Button onPress={press} title="SignOut"></Button>
+                    <Button onPress={() => navigation.navigate('SIGNIN')} title="SignOut"></Button>
 
 
                 </ImageBackground>
