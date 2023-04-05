@@ -36,7 +36,7 @@ export default function Register({ navigation }) {
   const press2 = () => {
     navigation.navigate('Home');
   }
-  SignGoogle = () => {
+  function SignGoogle () {
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -77,7 +77,7 @@ export default function Register({ navigation }) {
             // Signed in 
             const user = userCredential.user;
             // ...
-            navigation.navigate('Home');
+            navigation.navigate('Onboard');
           })
           .catch((error) => {
             const errorCode = error.code;

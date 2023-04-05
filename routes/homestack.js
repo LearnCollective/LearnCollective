@@ -5,22 +5,31 @@ import Home from "../screens/home";
 import Register from "../screens/Register";
 import { NavigationContainer } from '@react-navigation/native';
 import forgetpassword from "../screens/Forgetpassword";
+import OnboardingScreen from "../screens/OnboardingScreen";
 
-
-const screens={  
-  SIGNIN:{
+const screens={
+    SIGNIN:{
         screen:Login,
         navigationOptions: ({ navigation }) => ({
             headerShown: navigation.getParam('showHeader', false),
           }),
     },
   
-  REGISTER:{
+   REGISTER:{
         screen:Register,
         navigationOptions: ({ navigation }) => ({
             headerShown: navigation.getParam('showHeader', false),
           }),   
-    },
+    }, 
+    Onboard:{
+      screen:OnboardingScreen,
+      navigationOptions: ({ navigation }) => ({
+          headerShown: navigation.getParam('showHeader', false),
+        }),   
+  }, 
+
+ 
+ 
 
 
    
