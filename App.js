@@ -19,8 +19,7 @@ export default function App() {
   return (
 
 
-    // <Navigator/> 
-    <HomeTab></HomeTab>
+    <Navigator />
   );
 
 
