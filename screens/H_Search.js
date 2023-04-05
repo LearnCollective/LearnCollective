@@ -1,6 +1,6 @@
 import react from "react";
 import { Text, View, ImageBackground, Dimensions } from "react-native";
-export default function Search() {
+export default function H_Search() {
     return (
         <ImageBackground
             source={require('../assets/back2.png')}
