@@ -1,157 +1,191 @@
-
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Image, StyleSheet, Text, View,Button, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { shadow } from "styled-system";
+import * as Font from 'expo-font';
 //import * as Progress from 'react-native-progress';
-const slides =[
+const slides = [
   {
-    key:"one",
-    title:"Welcome",
-    text:"Welcome to this App",
+    key: "one",
+    title: "Welcome to the   future of learning",
+    text: "LearnCollective the ultimate destination for lifelong learners.",
     image: require("../assets/Logooo.png"),
 
   },
   {
-    key:"two",
-    title:"Welcome",
-    text:"Welcome to this App",
+    key: "two",
+    title: "LearnCollective platform",
+    text: "Help you discover a world of knowledge and be part of a community of lifelong learners",
     image: require("../assets/Logoo.png"),
   },
   {
-    key:"three",
-    title:"Welcome",
-    text:"Welcome to this App",
+    key: "three",
+    title: "Join us and start learning today",
+    text: "Let's go now",
     image: require("../assets/logo4.png"),
   },
 ];
 
-
-
+let customFonts = {
+  'kalam': require('../assets/fonts/Kalam-Bold.ttf'),
+  'frederic': require('../assets/fonts/FrederickatheGreat-Regular.ttf'),
+};
 export default class OnboardingScreen extends React.Component {
-state={showHomePage:false};
-_renderItem=({item})=>{
+  state = {
+    fontsLoaded: false,
+  };
 
-    // const pp = () =>{
-    //     navigation.navigate('Home');
-    // }
-  return(
-    <View style = {{flex:1}}>
-<Image
-source={item.image}
-style = {{
-  resizeMode:"cover",
-  height:"73%",
-  width:"100%",
-}}
-/>
-<Text
-  style = {{
-   
-    paddingTop:25,
-    paddingBottom:400,
-    fontSize:23,
-    fontWeight:"bold",
-    color:'blue',
-    alignSelf:"center"
-  }}>
-  {item.title}
-</Text>
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
 
-<Text style = {{
-  textAlign:'center',
-  color:'blue',
-  fontSize:20,
-  paddingHorizontal:30,
-}}>
-  {item.text}
-</Text>
-    </View>
-  )
-}
-_renderNextButton=()=>{
-  return(
-    <View style={styles.buttonCircle}>
-      <Icon
-      
-      name="chevron-right"
-      color="white"
-      size={24}
-     
-      />
-    
-    </View>
-  )
-}
-_renderDoneButton=()=>{
-    const press = () => {
-        navigation.navigate('Home');
-      }
-  return(
-    <View style = {styles.buttonCircle}>
+  componentDidMount() {
+    this._loadFontsAsync();
+  }
 
 
-<Button onPress={() => this.props.navigation.navigate('Home')}
-  icon={{
-    name: "check",
-    size:24,
-    color: "white"
-  }}
-/>
-        {/* <TouchableOpacity  >
-            {/* <Icon button type ="check" 
-      
-    //    name="check"
-    //    color="white"
-    //   size={24}
-      /> */}
-      
-        {/* </TouchableOpacity>  */}
-      
-    </View>
-  )
-}
 
+  state = { showHomePage: false };
+  _renderItem = ({ item }) => {
 
-  render(){
-    if(this.state.showHomePage){
-      return(<App/>
-      
-        )
-    }else
-    return(
-      
-     <AppIntroSlider
-     renderItem={this._renderItem}
-     data={slides}
-    renderDoneButton={this._renderDoneButton}
-    renderNextButton={this._renderNextButton}
-    
-     activeDotStyle={{
-       backgroundColor:"blue",
-       width:30
-     }}
-     />
-    
+    return (
+      <View style={styles.container}>
+        <Image
+          source={item.image}
+          style={{
+            height: Dimensions.get('window').height / 2.8,
+            width: Dimensions.get('window').width,
+            marginTop: '7%',
+          }}
+        />
+        <Text
+          style={{
+            marginTop: '2%',
+            fontSize: 45,
+            color: '#DAF5FF',
+            textAlign: "center",
+            // fontWeight: 'bold',
+            fontFamily: 'frederic'
+
+          }}>
+          {item.title}
+        </Text>
+
+        <Text style={{
+          textAlign: 'center',
+          color: 'white',
+          fontSize: 23,
+          marginTop: '2%',
+          textAlign: 'center',
+          marginRight: '2%',
+          marginLeft: '2%',
+          marginBottom: '15%',
+          fontFamily: 'kalam',
+          // fontWeight: 'bold',
+
+        }}>
+          {item.text}
+        </Text>
+      </View>
     )
+  }
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <AntDesign
+
+          name="rightcircle"
+          color="white"
+          size={40}
+          top={7}
+        />
+
+      </View>
+    )
+  }
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle} >
+        <AntDesign TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}
+
+          name="checkcircle"
+          color="white"
+          size={40}
+          top={7}
+
+        />
+      </View>
+    )
+  }
+
+  _renderSkipButton = () => {
+    return (
+      <View style={{ backgroundColor: 'white', borderRadius: 100, height: 40, width: 40, bottom: -.5, marginTop: 7 }}>
+        <MaterialCommunityIcons TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}
+
+          name="skip-forward-outline"
+          color="#002147"
+          size={30}
+          top={5}
+          left={5}
+        />
+      </View>
+    )
+  }
+
+
+  render() {
+    if (!this.state.fontsLoaded) {
+      return null;
+    }
+    if (this.state.showHomePage) {
+      return (<OnboardingScreen />
+
+      )
+    } else
+      return (
+
+        <AppIntroSlider
+          showSkipButton={true}
+          renderItem={this._renderItem}
+          data={slides}
+
+          renderDoneButton={this._renderDoneButton}
+          renderSkipButton={this._renderSkipButton}
+          renderNextButton={this._renderNextButton}
+
+
+          activeDotStyle={{
+            backgroundColor: "white",
+            width: 20,
+          }}
+        />
+
+      )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-   
-    backgroundColor: 'blue',
+    flex: 1,
+    backgroundColor: '#002147',
     alignItems: "center",
-    justifyContent: "center",
+    height: 200,
+
+
   },
-  buttonCircle:{
-  width:41,
-  height:41,
-  backgroundColor:'blue',
-  borderRadius:30,
-  justifyContent:"center",
-  alignItems:"center"
-  }
- 
+  buttonCircle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: 'red',
+    shadowOpacity: 0.5,
+
+  },
+
+
 });
