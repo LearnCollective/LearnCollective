@@ -4,15 +4,24 @@ import { signOut } from "firebase/auth";
 import { globalstyles } from "../styles/global";
 import { auth } from "../firebase/firebase_config";
 export default function Profile({ navigation }) {
-    const signOuthandle = () => {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            navigation.navigate('SIGNIN');
+    // const signOuthandle = () => {
+    //     signOut(auth).then(() => {
+    //         // Sign-out successful.
+    //         navigation.navigate('SIGNIN');
 
+    //     }).catch((error) => {
+    //         // An error happened.
+    //     });
+    // }
+     const signOuthandle = () => {
+        signOut(auth).then(() => {
+          // Sign-out successful.
+          navigation.navigate('SIGNIN');
+    
         }).catch((error) => {
-            // An error happened.
+          // An error happened.
         });
-    }
+      }
     return (
         <ImageBackground
             source={require('../assets/back2.png')}
@@ -22,7 +31,7 @@ export default function Profile({ navigation }) {
             <View style={globalstyles.container}>
 
                 <ImageBackground style={styles.photo}  >
-                    <Button onPress={() => navigation.navigate('SIGNIN')} title="SignOut"></Button>
+                    <Button onPress={signOuthandle} title="SignOut"></Button>
 
 
                 </ImageBackground>
