@@ -7,7 +7,7 @@ const VerticalCourseCard=({containerStyle,course})=>{
     return(
         <TouchableOpacity style={{width:270,...containerStyle}}>
            {/* thum */}
-           <Image source={require('../assets/we.png')}
+           <Image source={course.image}
            resizeMode="cover"
            style={{
             width:"100%",
