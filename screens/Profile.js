@@ -5,12 +5,16 @@ import { globalstyles } from "../styles/global";
 import { CheckBox, Input } from 'react-native-elements';
 import { auth, db } from "../firebase/firebase_config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+
 import { Avatar, Caption } from "react-native-paper";
 import { Formik } from 'formik';
 import Register from "./Register";
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PhoneInput from "react-native-phone-number-input";
+import { ImagePicker } from 'expo-image-picker';
+import im from '../assets/sora.jpg'
+
 import { AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import {
     Menu,
@@ -36,7 +40,10 @@ export default function Profile({ navigation }) {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [view, setView] = useState(true);
-
+    const presshandler = () => {
+        navigation.navigate('Home');
+    
+      }
 
     const edit = () => {
         setView(false);
@@ -84,85 +91,150 @@ export default function Profile({ navigation }) {
 
         });
     }
+    const [open, setOpen] = useState(false);
 
+    const handleOpenClose = () => {
+      setOpen(!open);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const [image, setImage] = useState(null);
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.canceled) {
+          setImage(result.assets[0].uri);
+        }
+      };
     return (
 
-        <View style={styles.container}>
+        <View style={styles.container} >
+            
             {view ? (
                 <View>
-                    <Text style={styles.title}>Profile</Text>
-
+                      <TouchableOpacity onPress={presshandler} >
+                                        <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
+                                    </TouchableOpacity>
                     <View>
+                    <Text style={{marginTop:20,fontSize:30,color:'white',fontStyle:'italic',textAlign:'center'}}>Profile Page</Text>
+
+                    <View style={{alignItems:'center'}}>
                         <Avatar.Image source={require('../assets/sora.jpg')}
-                            size={100}
-                            top={10}
+                            size={150}
+                            top={30}
                             right={-10}
                         />
-                        <TouchableOpacity style={{ marginTop: '5%', marginLeft: '-4%' }} onPress={edit}>
-                            <Text style={{ color: '#ffffff', marginTop: 5, fontWeight: 'bold', marginLeft: '12%' }}>Edit Profile</Text>
+                        <TouchableOpacity style={{marginTop:10}} onPress={edit}>
+                            <View style={{flexDirection:'row'}}>
+                            <Text style={{ color: '#ffffff', marginTop: 5, fontWeight: 'bold',marginTop:30,fontSize:20 }}>Edit Profile</Text>
                             <FontAwesome5
                                 name="user-edit"
                                 size={20}
                                 color='white'
-                                left={16}
-                                top={-23}
-                            />
+                                left={20}
+                                top={20}
+                            /></View>
                         </TouchableOpacity>
-                        <View style={{ marginTop: '-20%', marginLeft: '25%', }}>
+                        </View >
+                        
+                            <View style={{flexDirection:'row'}}>
                             <Text style={{
                                 color: '#47B5FF',
                                 fontSize: 20,
-                                marginTop: '-30%',
-                                marginLeft: '10%'
+                                marginTop:100,
+                                marginBottom:0, 
+                                marginLeft:-70,
+                                paddingRight:70,
+                                textAlign:'left',
                             }}> username </Text>
 
                             <Text style={{
+                                 fontSize: 20,
+                                 marginTop:102,
+                                 marginBottom:10, 
+                                  
+                                 textAlign:'left',
                                 color: 'white',
                                 fontSize: 15,
-                                marginLeft: '15%'
+                                
                             }}>{name}</Text>
-
+                            </View>
+                            <View style={{flexDirection:'row'}}>
                             <Text
                                 style={{
                                     color: '#47B5FF',
+                                    marginLeft:-70,
                                     fontSize: 20,
-                                    marginLeft: '10%'
+                                    marginTop:10,
+                                    paddingRight:100,
+                                    marginBottom:10,
+                                    textAlign:'left',
                                 }}
                             > Email</Text>
 
                             <Text style={{
-                                color: 'white',
-                                fontSize: 15,
-                                marginLeft: '15%'
-                            }}> {email}</Text>
-
+                               fontSize: 20,
+                               marginTop:10,
+                               marginBottom:30, 
+                               
+                               textAlign:'left',
+                              color: 'white',
+                            }}> {email}</Text>  
+                            </View>
+                            <View style={{flexDirection:'row'}}>
                             <Text style={{
-                                color: '#47B5FF',
-                                fontSize: 20,
-                                marginLeft: '10%'
+                               color: '#47B5FF',
+                               marginLeft:-70,
+                               paddingRight:10,
+                               fontSize: 20,
+                               paddingRight:70,
+                               marginBottom:10,
+                               textAlign:'left',
                             }}> Birth Date</Text>
                             <Text style={{
+                                 fontSize: 20,
+                                 marginTop:0,
+                                 marginBottom:10, 
+                              
+                                 textAlign:'left',
                                 color: 'white',
-                                fontSize: 15,
-                                marginLeft: '15%'
                             }}>{date}</Text>
+                            </View>
+                            <View style={{flexDirection:'row'}}>
                             <Text style={{
-                                color: '#47B5FF',
-                                fontSize: 20,
-                                marginLeft: '10%'
+                               color: '#47B5FF',
+                               marginLeft:-70,
+                               fontSize: 20,
+                               marginTop:10,
+                               marginBottom:10,
+                               paddingRight:40,
+                               textAlign:'left',
                             }}> phone Number</Text>
                             <Text style={{
+                                 fontSize: 20,
+                                 marginTop:10,
+                                 marginBottom:10, 
+                                 
+                                 textAlign:'left',
                                 color: 'white',
-                                fontSize: 15,
-                                marginLeft: '15%'
                             }}>{phone}</Text>
+                            </View>
 
-
-                        </View>
-                        <View style={{ borderBottomWidth: 1, marginTop: '15%', borderColor: 'white', }}></View>
-                    </View >
-
-                    <Button onPress={signOuthandle} title="SignOut"></Button>
+                      </View>
+                      <LineDivider lineStyle={{ width:200,backgroundColor: 'white'}}/>
+                         <View>  
+                    <TouchableOpacity onPress={signOuthandle}><Text style={{margin:10,marginTop:40,color:'white',fontSize:20,fontWeight:'bold',textAlign:'center'}}>signOut</Text></TouchableOpacity>
+                   </View>
 
                 </View >
             ) : (
@@ -173,7 +245,7 @@ export default function Profile({ navigation }) {
 
                     onSubmit={values => {
                         UpdateData(values.name, values.phone, values.date);
-
+                        setView(true);
                     }}
 
 
@@ -200,19 +272,20 @@ export default function Profile({ navigation }) {
                                     <TouchableOpacity onPress={save} >
                                         <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
                                     </TouchableOpacity>
+                                    
                                     <View style={{ alignItems: 'center' }}>
                                         <Avatar.Image source={require('../assets/sora.jpg')}
                                             size={100}
-                                            top={10}
+                                            top={-20}
                                         />
 
 
-                                        <MenuProvider style={{ marginHorizontal: 100, marginVertical: 60 }} >
+                                        <MenuProvider style={{ marginHorizontal: 100, marginVertical: 80 }} >
                                             <Menu >
                                                 <MenuTrigger
                                                     customStyles={{
                                                         triggerWrapper: {
-                                                            top: -80,
+                                                            top: -130,
                                                             right: -20
 
 
@@ -225,26 +298,28 @@ export default function Profile({ navigation }) {
                                                 <MenuOptions customStyles={{
                                                     optionsContainer: {
                                                         borderRadius: 10,
+                                                        marginTop:-90
                                                     },
                                                 }} style={{ alignItems: 'center' }}>
 
-                                                    <TouchableOpacity>
-                                                        <Text style={{ fontSize: 20, marginBottom: 15, marginTop: 15 }}>Take Photo</Text>
+                                                    <TouchableOpacity style={{marginTop:-5}}>
+                                                        <Text style={{ fontSize: 20, marginBottom: 15, marginTop:10}}>Take Photo</Text>
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity>
-                                                        <Text style={{ fontSize: 20, marginBottom: 15 }}> Choose From Gallery</Text>
-                                                    </TouchableOpacity>
-                                                    <TouchableOpacity>
+                                                    <Button title="Pick an image from camera roll" onPress={pickImage} />
+                                                            {image && <Image source={{ uri: im }} style={{ width: 200, height: 200 }} />}
+                                                    <TouchableOpacity >
                                                         <Text style={{ fontSize: 20, marginBottom: 15 }}>Cancel</Text>
                                                     </TouchableOpacity>
                                                 </MenuOptions>
                                             </Menu>
                                         </MenuProvider>
+      
+
                                     </View>
 
 
 
-                                    <View style={{ marginTop: -80, }}>
+                                    <View style={{ marginTop: 80, }}>
                                         <View floatingLable style={{ borderColor: '#4632A1', alignItems: 'stretch', }}>
                                             <Text style={styles.textInput} >Username</Text>
                                             <View style={{ flexDirection: 'row' }}>
