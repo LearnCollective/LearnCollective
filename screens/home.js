@@ -1,13 +1,15 @@
 import react from "react";
 import photo from '../assets/sora.jpg'
-import photo2 from '../assets/back2.png'
+import photo2 from '../assets/we.png'
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase_config";
+import { FontAwesome } from '@expo/vector-icons'; 
 import { FlatList } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons'; 
 
+
 import { Ionicons } from '@expo/vector-icons'; 
-import {TextButton,LineDivider,CategoryCard,IconButton,VerticalCourseCard} from "../components";
+import {TextButton,LineDivider,HorizontalCoursesCard,CategoryCard,IconButton,VerticalCourseCard} from "../components";
 
 // import {COLORS}
 
@@ -26,7 +28,7 @@ import {
 import { globalstyles } from "../styles/global";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { padding } from "styled-system";
+import { backgroundColor, padding } from "styled-system";
 
 
 export default function Home({ navigation }) {
@@ -69,11 +71,15 @@ export default function Home({ navigation }) {
     )
   }
   const presshandler = () => {
-    navigation.navigate('REGISTER');
+    navigation.navigate('PROFILE');
 
   }
   const press = () => {
     navigation.navigate('PROFILE');
+
+  }
+  const opress = () => {
+    navigation.navigate('SEARCH');
 
   }
 
@@ -86,13 +92,14 @@ export default function Home({ navigation }) {
       <View
       style={{flex:1}}>
         <View style={{flexDirection:'row'}}>
-        <TouchableOpacity onPress={press}><AntDesign name="profile" size={24} color="white" style={{marginLeft:-20,marginTop:3}} /></TouchableOpacity>
+        <TouchableOpacity onPress={presshandler}><AntDesign name="profile" size={24} color="white" style={{marginLeft:-20,marginTop:3}} /></TouchableOpacity>
         <Text style={{fontSize:30,fontWeight:'bold',marginBottom:3,color:'white',marginLeft:7}}>Hello To LearnCollective</Text>
+       
         </View><Text style={{color:'white',marginLeft:7}}> thursday ,10th Apr 2023 </Text>
       </View>
       {/* Notification */}
-      <Ionicons style={{marginRight:40}} name="notifications" size={24} color="white" />
-      
+      {/* <Ionicons style={{marginRight:40}} name="notifications" size={24} color="white" /> */}
+       <TouchableOpacity onPress={opress} style={{marginRight:40}}><FontAwesome name="search" size={24} color="white" /></TouchableOpacity>
     </View>
     )
   }
@@ -103,7 +110,7 @@ export default function Home({ navigation }) {
         id: 1,
         title: "Introduction to Computer Science",
         instructor: "John Doe",
-        image: "https://example.com/image1.jpg",
+        image: require("../assets/we.png"),
         description: "Learn the fundamentals of computer science.",
         duration: "4 weeks",
         price: "$49.99"
@@ -112,7 +119,7 @@ export default function Home({ navigation }) {
         id: 2,
         title: "Web Development",
         instructor: "Jane Smith",
-        image: "https://example.com/image2.jpg",
+        image: require("../assets/we.png"),
         description: "Build web applications using HTML, CSS, and JavaScript.",
         duration: "6 weeks",
         price: "$79.99"
@@ -122,7 +129,7 @@ export default function Home({ navigation }) {
         id: 3,
         title: "Python",
         instructor: "Jane Smith",
-        image: "https://example.com/image2.jpg",
+        image: require("../assets/we.png"),
         description: "Build web applications using HTML, CSS, and JavaScript.",
         duration: "2 weeks",
         price: "$79.99"
@@ -132,9 +139,27 @@ export default function Home({ navigation }) {
         id: 4,
         title: "React-Native",
         instructor: "Jane Smith",
-        image: "https://example.com/image2.jpg",
+        
+        image: require("../assets/we.png"),
         description: "Build web applications using HTML, CSS, and JavaScript.",
         duration: "3 weeks",
+        price: "$79.99"
+      }, {
+        id: 5,
+        title: "difod",
+        instructor: "Jane Smith",
+        image: require("../assets/we.png"),
+        description: "Build web applications using HTML, CSS, and JavaScript.",
+        duration: "6 weeks",
+        price: "$79.99"
+      },
+      {
+        id: 6,
+        title: "difolklljd",
+        instructor: "Jane Smith",
+        image: require("../assets/we.png"),
+        description: "Build web applications using HTML, CSS, and JavaScript.",
+        duration: "6 weeks",
         price: "$79.99"
       },
       // more course objects...
@@ -144,22 +169,64 @@ export default function Home({ navigation }) {
         id: 1,
         name: "Books",
         description: "Explore our vast collection of books",
-        image:require('../assets/time.png')
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/thumbnail-books.jpg"
       },
       {
         id: 2,
         name: "Music",
         description: "Discover new music from various genres",
-        image:require('../assets/time.png')
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/thumbnail-music.jpg"
       },
       {
         id: 3,
         name: "Movies",
         description: "Watch your favorite movies and TV shows",
-        image:require('../assets/time.png')
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/thumbnail-movies.jpg"
+      }
+    ],
+    PopularCourses: [
+      {
+        id: 1,
+        name: "Introduction to Programming",
+        instructor :"Ahmed Hussieny",
+        description: "Learn the basics of programming with this introductory course",
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/intro-to-programming-thumbnail.jpg",
+        duration: "4 weeks",
+        level: "Beginner",
+        price: 49.99,
+        rating:4.9
       },
-      // more category objects can be added here
+      {
+        id: 2,
+        name: "Data Science",
+        instructor :"Ahmed Hussieny",
+        description: "Explore the world of data science and learn how to analyze and interpret data",
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/data-science-thumbnail.jpg",
+        duration: "8 weeks",
+        level: "Intermediate",
+        price: 99.99,
+        rating:4.9
+      },
+      {
+        id: 3,
+        name: "Web Development",
+        instructor :"Ahmed Hussieny",
+        description: "Master the skills needed to build dynamic web applications",
+        image: require("../assets/we.png"),
+        thumbnail: "https://example.com/web-development-thumbnail.jpg",
+        duration: "12 weeks",
+        level: "Advanced",
+        price: 149.99,
+        rating:4.9
+      }
     ]
+    
+    
   };
 ///////////////////////////////////////////////////////////////
   function renderStartLearning(){
@@ -233,55 +300,71 @@ export default function Home({ navigation }) {
     )
   }
   function renderCategories(){
-  //   return(
-  //     <Section
-  //      title="Categories"
-  //      >
-  //       <FlatList
-  //       horizontal
-  //       data={dummyData.categories}
-  //       listkey="categories"
-  //       keyExtractor={item=>`categories-${item.id}`}
-  //       showsHorizontalScrollIndicator={false}
-  //       contentContainerStyle={{
-  //         marginTop:10
-  //       }}
-  //       renderItem={({item,index})=>(
-  //         <VerticalCourseCard 
-  //         category={item}
-  //         containerStyle={{
-  //           marginLeft:index==0?10:20,
-  //           arginRight:index==dummyData.categories.length-1?10:0
-  //         }}
-  //     />
-  //    )}
-  // />
-  //      </Section>
-  //   )
-  return(
-        <Section
+    return(
+      <Section
        title="Categories"
        >
-    <FlatList
-    
-    horizontal
-    data={dummyData.categories}
-   listkey="Courses"
-   keyExtractor={item=>`Courses-${item.id}`}
-   showsHorizontalScrollIndicator={false}
-   contentContainerStyle={{marginTop:10}
-    
-   }
-   
-   renderItem={({item,index})=>(
-    <CategoryCard
-    containerStyle={{marginLeft:index==0?10:20}}
-    course={item}
-    />
-   )}/>
-   </Section>
-  )
+        <FlatList
+        horizontal
+        data={dummyData.categories}
+        listkey="categories"
+        keyExtractor={item=>`categories-${item.id}`}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          marginTop:10
+        }}
+        renderItem={({item,index})=>(
+          <CategoryCard 
+          category={item}
+          containerStyle={{
+            marginLeft:index==0?10:20,
+            arginRight:index==dummyData.categories.length-1?10:0
+          }}
+      />
+     )}
+  />
+       </Section>
+    )
   }
+  const renderPopularCourses=()=>{
+    return(
+      <Section title="Popular Courses"
+      containerStyle={{
+        marginTop:30
+      }}
+      
+
+      >
+        <FlatList
+        data={dummyData.PopularCourses}
+        listkey="PopularCourses" 
+        scrollEnabled={false}
+        keyExtractor={item=>`PopularCourses-${item.id}`}
+       
+        contentContainerStyle={{
+          marginTop:5,
+          paddingHorizontal:10,
+        }}
+        renderItem={({item,index})=>(
+          <HorizontalCoursesCard 
+          course={item}
+          containerStyle={{
+            marginLeft:index==0?10:20,
+            arginRight:index==dummyData.PopularCourses.length-1?10:0
+          }}
+      />
+     )}
+     ItemSeparatorComponent={()=>(
+      <LineDivider
+      lineStyle={{backgroundColor:'white',marginBottom:20}}/>
+
+     ) }
+    />
+    </Section>
+    )
+  }
+  //002147
+  //0047
   return (
     <View 
     style={{
@@ -310,6 +393,9 @@ export default function Home({ navigation }) {
 
            {/* categories */}
            {renderCategories()}
+
+           {/* Popular Courses */}
+           {renderPopularCourses()}
 
     </ScrollView>
     

@@ -7,40 +7,52 @@ import { NavigationContainer } from '@react-navigation/native';
 import forgetpassword from "../screens/Forgetpassword";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import Profile from "../screens/Profile";
-
-const screens={
-  SIGNIN:{
+import Search from "../screens/Search";
+const screens={    Home:{
+        screen:Home,
+        navigationOptions: ({ navigation }) => ({
+            headerShown: navigation.getParam('showHeader', false),
+          }), 
+        }, SIGNIN:{
     screen:Login,
     navigationOptions: ({ navigation }) => ({
         headerShown: navigation.getParam('showHeader', false),
       }),
-},
-
-REGISTER:{
-    screen:Register,
+    },    SEARCH:{
+    screen:Search,
     navigationOptions: ({ navigation }) => ({
         headerShown: navigation.getParam('showHeader', false),
-      }),   
-}, 
- 
- 
+      }),
 
-
-   
-   
-    Home:{
-        screen:Home,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: navigation.getParam('showHeader', false),
-          }),
     },
-
-    PROFILE:{
+ 
+ 
+           PROFILE:{
       screen:Profile,
       navigationOptions: ({ navigation }) => ({
           headerShown: navigation.getParam('showHeader', false),
         }),
   },
+ 
+    REGISTER:{
+    screen:Register,
+    navigationOptions: ({ navigation }) => ({
+        headerShown: navigation.getParam('showHeader', false),
+      }),   
+}, 
+   
+
+ 
+
+
+ 
+ 
+  SEARCH:{
+    screen:Search,
+    navigationOptions: ({ navigation }) => ({
+        headerShown: navigation.getParam('showHeader', false),
+      }),
+},
     
     Onboard:{
       screen:OnboardingScreen,
