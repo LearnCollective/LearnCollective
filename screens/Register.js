@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, alert, TouchableOpacity, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions, Image, Alert } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, provider, db } from "../firebase/firebase_config";
+import { auth} from "../firebase/firebase_config";
 import { CheckBox, Input } from 'react-native-elements';
 import photo2 from '../assets/back.jpg'
 import { ListItem, SocialIcon } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { provider, db } from "../firebase/firebase_config";
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import PhoneInput from "react-native-phone-number-input";
+// import PhoneInput from "react-native-phone-number-input";
 import { doc, setDoc } from "firebase/firestore";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { marginTop, paddingBottom, width } from 'styled-system';
@@ -20,7 +21,7 @@ const loginValidationSchema = yup.object().shape({
   dateofbirth: yup.string()
     .required('Date of Birth is required')
     .matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'Date of Birth must be a valid date in the format YYYY-MM-DD'),
-  phonenumber: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid').required('Phone Number is required'),
+ // phonenumber: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid').required('Phone Number is required'),
   password: yup.string()
     .required('password is required').matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
@@ -185,7 +186,10 @@ export default function Register({ navigation }) {
                   <View style={{ flexDirection: 'row', alignItems: 'stretch' }}>
 
                     <Input onChangeText={handleChange('email')}
-                      onBlur={handleBlur('email')} value={values.email}
+                      onBlur={handleBlur('email')} 
+                      underlineColorAndroid="#111"
+
+                      value={values.email}
                     />
 
                     <Icon name={!errors.email ? 'check' : 'close'} style={{ color: !errors.email ? '#4632A1' : 'red' }} />
@@ -215,7 +219,7 @@ export default function Register({ navigation }) {
                   }
                 </View>
 
-                <View floatingLable style={{ borderColor: '#4632A1' }}>
+                {/* <View floatingLable style={{ borderColor: '#4632A1' }}>
                   <Text>Phone Number</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'stretch' }}>
                     <PhoneInput
@@ -225,12 +229,12 @@ export default function Register({ navigation }) {
                     />
                     <Icon top={22} name={!errors.phonenumber ? 'check' : 'close'} style={{ color: !errors.phonenumber ? '#4632A1' : 'red' }} />
                   </View>
-                </View>
-                <View style={{ marginTop: -10, paddingBottom: 10 }}>
+                </View> */}
+                {/* <View style={{ marginTop: -10, paddingBottom: 10 }}>
                   {[errors.phonenumber && touched.phonenumber] &&
                     <Text style={styles.errors}>{errors.phonenumber}</Text>
                   }
-                </View>
+                </View> */}
 
                 <View floatingLable style={{ borderColor: '#4632A1', alignItems: 'stretch' }}>
                   <Text>Password</Text>

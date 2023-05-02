@@ -1,7 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import H_Search from "./H_Search";
+import { FontAwesome } from '@expo/vector-icons'; 
+import Search from "./Search";
 import Courses from "./Courses";
 import DownloadCourses from "./DownloadCourses";
 import Profile from "./Profile";
@@ -33,7 +34,7 @@ export default function HomeTab() {
                     }} >
 
 
-                <Tab.Screen name="search" component={H_Search} options={{
+                <Tab.Screen name="search" component={Search} options={{
                     tabBarIcon: ({ focused }) => (
                         <View style={{ alignItems: 'center' }}>
                             <AntDesign name="search1"
