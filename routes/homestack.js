@@ -8,12 +8,20 @@ import forgetpassword from "../screens/Forgetpassword";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
-const screens={    Home:{
+import Purchase from "../screens/Purchase";
+
+const screens={   
+   Home:{
         screen:Home,
         navigationOptions: ({ navigation }) => ({
             headerShown: navigation.getParam('showHeader', false),
           }), 
-        }, SIGNIN:{
+        },
+
+  
+ 
+
+  SIGNIN:{
     screen:Login,
     navigationOptions: ({ navigation }) => ({
         headerShown: navigation.getParam('showHeader', false),
@@ -42,7 +50,12 @@ const screens={    Home:{
 }, 
    
 
- 
+PURCHASE:{
+  screen:Purchase,
+  navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+},
 
 
  
@@ -54,12 +67,7 @@ const screens={    Home:{
       }),
 },
     
-    Onboard:{
-      screen:OnboardingScreen,
-      navigationOptions: ({ navigation }) => ({
-          headerShown: navigation.getParam('showHeader', false),
-        }),   
-  }, 
+
  Forgetpassword:{ 
       screen:forgetpassword,
       navigationOptions: ({ navigation }) => ({
