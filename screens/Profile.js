@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, Button, ImageBackground, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Button, Image, ImageBackground, Dimensions, ScrollView, TouchableOpacity, Modal, TouchableHighlight } from "react-native";
 import { signOut } from "firebase/auth";
 import { globalstyles } from "../styles/global";
 import { CheckBox, Input } from 'react-native-elements';
@@ -12,8 +12,8 @@ import Register from "./Register";
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import PhoneInput from "react-native-phone-number-input";
-import { ImagePicker } from 'expo-image-picker';
-import im from '../assets/sora.jpg'
+import * as ImagePicker from 'expo-image-picker';
+
 
 import { AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import {
@@ -21,8 +21,11 @@ import {
     MenuProvider,
     MenuOptions,
     MenuTrigger,
+    MenuOption,
+
 } from "react-native-popup-menu";
 import { LineDivider } from "../components";
+import { background, backgroundColor, flex, height } from "styled-system";
 
 const loginValidationSchema = yup.object().shape({
     name: yup.string().matches(/(\w.+\s).+/, 'Enter at least 2 names').required('Full name is required'),
@@ -40,10 +43,15 @@ export default function Profile({ navigation }) {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [view, setView] = useState(true);
+    const [click, setClick] = useState(true);
+    const [modelVisible, setModelVisible] = useState(false);
+    const [image, setImage] = useState(null);
+
+
     const presshandler = () => {
         navigation.navigate('Home');
-    
-      }
+
+    }
 
     const edit = () => {
         setView(false);
@@ -63,6 +71,7 @@ export default function Profile({ navigation }) {
             setEmail(data.email);
             setName(data.name);
             setDate(data.birthdate);
+            setImage(data.photo);
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -86,165 +95,186 @@ export default function Profile({ navigation }) {
         await updateDoc(washingtonRef, {
             name: Uname,
             phone: Uphone,
-            birthdate: UDate
-            // email: b,
+            birthdate: UDate,
+            photo: image,
 
         });
     }
     const [open, setOpen] = useState(false);
 
     const handleOpenClose = () => {
-      setOpen(!open);
+        setOpen(!open);
     };
-  
+
     const handleClose = () => {
-      setOpen(false);
+        setOpen(false);
     };
-    const [image, setImage] = useState(null);
-    const pickImage = async () => {
+    //image profile 
+    // gallery
+    const handelgallery = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.All,
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+
         });
-    
+        setModelVisible(false)
         console.log(result);
-    
+
         if (!result.canceled) {
-          setImage(result.assets[0].uri);
+            setImage(result.assets[0].uri);
         }
-      };
+
+    };
+    // camera
+    const handelcamera = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+        setModelVisible(false)
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
+
+
     return (
 
         <View style={styles.container} >
-            
+
             {view ? (
                 <View>
-                      <TouchableOpacity onPress={presshandler} >
-                                        <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
-                                    </TouchableOpacity>
+                    <TouchableOpacity onPress={presshandler} >
+                        <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
+                    </TouchableOpacity>
                     <View>
-                    <Text style={{marginTop:20,fontSize:30,color:'white',fontStyle:'italic',textAlign:'center'}}>Profile Page</Text>
+                        <Text style={{ marginTop: 20, fontSize: 30, color: 'white', fontStyle: 'italic', textAlign: 'center' }}>Profile Page</Text>
 
-                    <View style={{alignItems:'center'}}>
-                        <Avatar.Image source={require('../assets/sora.jpg')}
-                            size={150}
-                            top={30}
-                            right={-10}
-                        />
-                        <TouchableOpacity style={{marginTop:10}} onPress={edit}>
-                            <View style={{flexDirection:'row'}}>
-                            <Text style={{ color: '#ffffff', marginTop: 5, fontWeight: 'bold',marginTop:30,fontSize:20 }}>Edit Profile</Text>
-                            <FontAwesome5
-                                name="user-edit"
-                                size={20}
-                                color='white'
-                                left={20}
-                                top={20}
-                            /></View>
-                        </TouchableOpacity>
+                        <View style={{ alignItems: 'center' }}>
+                            <Avatar.Image source={{ uri: image ? image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                                size={150}
+                                top={30}
+                                right={-10}
+                            />
+                            <TouchableOpacity style={{ marginTop: 10 }} onPress={edit}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ color: '#ffffff', marginTop: 5, fontWeight: 'bold', marginTop: 30, fontSize: 20 }}>Edit Profile</Text>
+                                    <FontAwesome5
+                                        name="user-edit"
+                                        size={20}
+                                        color='white'
+                                        left={20}
+                                        top={20}
+                                    /></View>
+                            </TouchableOpacity>
                         </View >
-                        
-                            <View style={{flexDirection:'row'}}>
+
+                        <View style={{ flexDirection: 'row' }}>
                             <Text style={{
                                 color: '#47B5FF',
                                 fontSize: 20,
-                                marginTop:100,
-                                marginBottom:0, 
-                                marginLeft:-70,
-                                paddingRight:70,
-                                textAlign:'left',
+                                marginTop: 100,
+                                marginBottom: 0,
+                                marginLeft: -70,
+                                paddingRight: 70,
+                                textAlign: 'left',
                             }}> username </Text>
 
                             <Text style={{
-                                 fontSize: 20,
-                                 marginTop:102,
-                                 marginBottom:10, 
-                                  
-                                 textAlign:'left',
+                                fontSize: 20,
+                                marginTop: 102,
+                                marginBottom: 10,
+
+                                textAlign: 'left',
                                 color: 'white',
                                 fontSize: 15,
-                                
+
                             }}>{name}</Text>
-                            </View>
-                            <View style={{flexDirection:'row'}}>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
                             <Text
                                 style={{
                                     color: '#47B5FF',
-                                    marginLeft:-70,
+                                    marginLeft: -70,
                                     fontSize: 20,
-                                    marginTop:10,
-                                    paddingRight:100,
-                                    marginBottom:10,
-                                    textAlign:'left',
+                                    marginTop: 10,
+                                    paddingRight: 100,
+                                    marginBottom: 10,
+                                    textAlign: 'left',
                                 }}
                             > Email</Text>
 
                             <Text style={{
-                               fontSize: 20,
-                               marginTop:10,
-                               marginBottom:30, 
-                               
-                               textAlign:'left',
-                              color: 'white',
-                            }}> {email}</Text>  
-                            </View>
-                            <View style={{flexDirection:'row'}}>
+                                fontSize: 20,
+                                marginTop: 10,
+                                marginBottom: 30,
+
+                                textAlign: 'left',
+                                color: 'white',
+                            }}> {email}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
                             <Text style={{
-                               color: '#47B5FF',
-                               marginLeft:-70,
-                               paddingRight:10,
-                               fontSize: 20,
-                               paddingRight:70,
-                               marginBottom:10,
-                               textAlign:'left',
+                                color: '#47B5FF',
+                                marginLeft: -70,
+                                paddingRight: 10,
+                                fontSize: 20,
+                                paddingRight: 70,
+                                marginBottom: 10,
+                                textAlign: 'left',
                             }}> Birth Date</Text>
                             <Text style={{
-                                 fontSize: 20,
-                                 marginTop:0,
-                                 marginBottom:10, 
-                              
-                                 textAlign:'left',
+                                fontSize: 20,
+                                marginTop: 0,
+                                marginBottom: 10,
+
+                                textAlign: 'left',
                                 color: 'white',
                             }}>{date}</Text>
-                            </View>
-                            <View style={{flexDirection:'row'}}>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
                             <Text style={{
-                               color: '#47B5FF',
-                               marginLeft:-70,
-                               fontSize: 20,
-                               marginTop:10,
-                               marginBottom:10,
-                               paddingRight:40,
-                               textAlign:'left',
+                                color: '#47B5FF',
+                                marginLeft: -70,
+                                fontSize: 20,
+                                marginTop: 10,
+                                marginBottom: 10,
+                                paddingRight: 40,
+                                textAlign: 'left',
                             }}> phone Number</Text>
                             <Text style={{
-                                 fontSize: 20,
-                                 marginTop:10,
-                                 marginBottom:10, 
-                                 
-                                 textAlign:'left',
+                                fontSize: 20,
+                                marginTop: 10,
+                                marginBottom: 10,
+
+                                textAlign: 'left',
                                 color: 'white',
                             }}>{phone}</Text>
-                            </View>
+                        </View>
 
-                      </View>
-                      <LineDivider lineStyle={{ width:200,backgroundColor: 'white'}}/>
-                         <View>  
-                    <TouchableOpacity onPress={signOuthandle}><Text style={{margin:10,marginTop:40,color:'white',fontSize:20,fontWeight:'bold',textAlign:'center'}}>signOut</Text></TouchableOpacity>
-                   </View>
+                    </View>
+                    <LineDivider lineStyle={{ width: 200, backgroundColor: 'white' }} />
+                    <View>
+                        <TouchableOpacity onPress={signOuthandle}><Text style={{ margin: 10, marginTop: 40, color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>signOut</Text></TouchableOpacity>
+                    </View>
 
                 </View >
             ) : (
                 <Formik
 
-                    initialValues={{ name: name, date: date, phone: phone }}
+                    initialValues={{ name: name, date: date, phone: phone, photo: image }}
                     validateOnMount={true}
 
                     onSubmit={values => {
-                        UpdateData(values.name, values.phone, values.date);
+                        UpdateData(values.name, values.phone, values.date, image);
                         setView(true);
                     }}
 
@@ -262,64 +292,66 @@ export default function Profile({ navigation }) {
 
                             }}
                             showsVerticalScrollIndicator={false}>
-
-
                             <View style={{ marginLeft: 15, marginRight: 30 }}>
 
 
-                                <View  >
-                                    <Text style={styles.title1}>Edit Profile</Text>
-                                    <TouchableOpacity onPress={save} >
-                                        <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
+
+                                <View>
+                                    <TouchableOpacity style={{ flex: 1 }} onPress={save} >
+                                        <Ionicons name='arrow-back' size={25} top={40} color='white' />
                                     </TouchableOpacity>
-                                    
+                                    <Text style={styles.title1}>Edit Profile</Text>
+
+
                                     <View style={{ alignItems: 'center' }}>
-                                        <Avatar.Image source={require('../assets/sora.jpg')}
-                                            size={100}
-                                            top={-20}
+                                        <Avatar.Image source={{ uri: image ? image : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' }}
+                                            size={150}
+                                            top={5}
                                         />
+                                        <View>
+                                            {!modelVisible ? (
+                                                <TouchableOpacity onPress={() => setModelVisible(!modelVisible)} style={{ marginTop: -38, marginLeft: 60, height: 35, width: 35, backgroundColor: 'white', borderRadius: 50 }}>
+                                                    <Ionicons
+                                                        name='ios-camera-outline'
+                                                        top={2}
+                                                        left={3.4}
+                                                        size={28}
+                                                        color='black' />
+                                                </TouchableOpacity>
+                                            ) : null}
+                                            {/*------------------------------------------*/}
+                                        </View>
 
 
-                                        <MenuProvider style={{ marginHorizontal: 100, marginVertical: 80 }} >
-                                            <Menu >
-                                                <MenuTrigger
-                                                    customStyles={{
-                                                        triggerWrapper: {
-                                                            top: -130,
-                                                            right: -20
+                                        <Modal
+                                            animationType='no slide'
+                                            visible={modelVisible}
+                                            transparent={true}
+                                        >
+                                            <View style={styles.centeredView}>
+                                                <View style={styles.modalView}>
+
+                                                    <View style={{ alignItems: 'center' }}>
+                                                        <TouchableOpacity onPress={handelcamera} >
+                                                            <Text style={{ fontSize: 20, marginBottom: 5 }}>Take Photo </Text>
+                                                        </TouchableOpacity>
 
 
-                                                        },
-                                                    }}
-
-                                                >
-                                                    <Entypo name='circle-with-plus' size={40} color='#666' />
-                                                </MenuTrigger>
-                                                <MenuOptions customStyles={{
-                                                    optionsContainer: {
-                                                        borderRadius: 10,
-                                                        marginTop:-90
-                                                    },
-                                                }} style={{ alignItems: 'center' }}>
-
-                                                    <TouchableOpacity style={{marginTop:-5}}>
-                                                        <Text style={{ fontSize: 20, marginBottom: 15, marginTop:10}}>Take Photo</Text>
-                                                    </TouchableOpacity>
-                                                    <Button title="Pick an image from camera roll" onPress={pickImage} />
-                                                            {image && <Image source={{ uri: im }} style={{ width: 200, height: 200 }} />}
-                                                    <TouchableOpacity >
-                                                        <Text style={{ fontSize: 20, marginBottom: 15 }}>Cancel</Text>
-                                                    </TouchableOpacity>
-                                                </MenuOptions>
-                                            </Menu>
-                                        </MenuProvider>
-      
-
+                                                        <TouchableOpacity onPress={handelgallery}>
+                                                            <Text style={{ fontSize: 20, marginBottom: 5 }}>Choose From Gallery</Text>
+                                                        </TouchableOpacity>
+                                                        <TouchableOpacity onPress={() => setModelVisible(false)}>
+                                                            <Text style={{ fontSize: 20, }}>close</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        </Modal>
                                     </View>
 
 
 
-                                    <View style={{ marginTop: 80, }}>
+                                    <View style={{ marginTop: 35, }}>
                                         <View floatingLable style={{ borderColor: '#4632A1', alignItems: 'stretch', }}>
                                             <Text style={styles.textInput} >Username</Text>
                                             <View style={{ flexDirection: 'row' }}>
@@ -398,13 +430,13 @@ export default function Profile({ navigation }) {
                                             }
                                         </View>
 
-                                        <View style={{ marginBottom: 30 }} />
+                                        <View style={{ marginBottom: 40 }} />
                                     </View>
                                     <View style={{ height: 30, justifyContent: 'center', alignItems: 'center' }}>
                                         <TouchableOpacity onPress={handleSubmit} rounded disabled={!isValid} style={[styles.loginBtn, styles.shadowBtn, { shadowColor: '#dd4a39', backgroundColor: isValid ? '#38E54D' : '#cacfd2' }]} >
                                             <Text style={{ color: '#ffffff', marginTop: 5, fontWeight: 'bold' }}>Save</Text>
                                         </TouchableOpacity>
-                                        <View style={{ marginBottom: 30 }} />
+                                        <View style={{ marginBottom: 60 }} />
                                     </View>
                                 </View>
                             </View>
@@ -415,7 +447,8 @@ export default function Profile({ navigation }) {
                     }
 
                 </Formik >
-            )}
+            )
+            }
         </View >
 
     );
@@ -453,9 +486,8 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         color: 'white',
-        marginTop: '10%',
+        marginTop: 10,
         marginBottom: '3%',
-        marginRight: '-100%',
         marginLeft: '10%'
     },
     textInput: {
@@ -560,7 +592,26 @@ const styles = StyleSheet.create({
         alignContent: 'center',
 
         marginBottom: -50,
-    }
+    },
+    modalView: {
+        margin: 20,
+        width: 210,
+        backgroundColor: "#fff",
+        borderRadius: 15,
+        padding: 10,
+        alignItems: "center",
+        shadowColor: "#000",
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
+        elevation: 0
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center',
+        marginTop: -150,
+
+    },
 
 
 });
