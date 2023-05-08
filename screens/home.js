@@ -6,8 +6,6 @@ import { auth } from "../firebase/firebase_config";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { FlatList } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons'; 
-
-
 import { Ionicons } from '@expo/vector-icons'; 
 import {TextButton,LineDivider,HorizontalCoursesCard,CategoryCard,IconButton,VerticalCourseCard} from "../components";
 
@@ -32,6 +30,7 @@ import { backgroundColor, padding } from "styled-system";
 
 
 export default function Home({ navigation }) {
+  
   const signOuthandle = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -82,7 +81,11 @@ export default function Home({ navigation }) {
     navigation.navigate('SEARCH');
 
   }
+  //const cart = () => {
+    //navigation.navigate('Cart');
 
+  //}
+  
   const renderHeder=()=>{
     return(
       <View
@@ -95,6 +98,16 @@ export default function Home({ navigation }) {
         <TouchableOpacity onPress={presshandler}><AntDesign name="profile" size={24} color="white" style={{marginLeft:-20,marginTop:3}} /></TouchableOpacity>
         <Text style={{fontSize:30,fontWeight:'bold',marginBottom:3,color:'white',marginLeft:7}}>Hello To LearnCollective</Text>
        
+       
+       <TouchableOpacity onPress={cart}><AntDesign name="shoppingcart" size={40} color="white" style={{marginLeft:150,marginTop:10}} /></TouchableOpacity>
+       <TouchableOpacity> 
+        
+        <TouchableOpacity onPress={opress}><button onClick={() => handleClick(item) }style={{marginLeft:500}}>Add to cart </button></TouchableOpacity>
+              </TouchableOpacity>
+
+
+      
+       
         </View><Text style={{color:'white',marginLeft:7}}> thursday ,10th Apr 2023 </Text>
       </View>
       {/* Notification */}
@@ -102,9 +115,11 @@ export default function Home({ navigation }) {
        <TouchableOpacity onPress={opress} style={{marginRight:40}}><FontAwesome name="search" size={24} color="white" /></TouchableOpacity>
     </View>
     )
+   
   }
 //////////////////////////////////// courses  //////////
   const dummyData = {
+    
     courses_list_1: [
       {
         id: 1,
@@ -114,6 +129,7 @@ export default function Home({ navigation }) {
         description: "Learn the fundamentals of computer science.",
         duration: "4 weeks",
         price: "$49.99"
+        
       },
       {
         id: 2,
@@ -271,7 +287,7 @@ export default function Home({ navigation }) {
             color:'white',
         fontSize:20,fontStyle:'italic'}}
         >
-          Start lerning
+          Start learning
           </Text>
           </TouchableOpacity>
          
