@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebase_config";
 import { FontAwesome } from '@expo/vector-icons'; 
 import { FlatList } from "react-native-gesture-handler";
 import { AntDesign } from '@expo/vector-icons'; 
-
+import CoursesScreen from "../screens/search_courses";
 
 import { Ionicons } from '@expo/vector-icons'; 
 import {TextButton,LineDivider,HorizontalCoursesCard,CategoryCard,IconButton,VerticalCourseCard} from "../components";
@@ -79,7 +79,7 @@ export default function Home({ navigation }) {
 
   }
   const opress = () => {
-    navigation.navigate('SEARCH');
+    navigation.navigate("SearchCourse");
 
   }
 

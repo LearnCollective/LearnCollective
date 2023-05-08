@@ -9,75 +9,70 @@ import OnboardingScreen from "../screens/OnboardingScreen";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
 import Purchase from "../screens/Purchase";
+import CoursesScreen from "../screens/search_courses";
 
-const screens={   
-   Home:{
-        screen:Home,
-        navigationOptions: ({ navigation }) => ({
-            headerShown: navigation.getParam('showHeader', false),
-          }), 
-        },
-
-  
- 
-
-  SIGNIN:{
-    screen:Login,
+const screens = {
+  Home: {
+    screen: Home,
     navigationOptions: ({ navigation }) => ({
-        headerShown: navigation.getParam('showHeader', false),
-      }),
-    },    SEARCH:{
-    screen:Search,
-    navigationOptions: ({ navigation }) => ({
-        headerShown: navigation.getParam('showHeader', false),
-      }),
-
-    },
- 
- 
-           PROFILE:{
-      screen:Profile,
-      navigationOptions: ({ navigation }) => ({
-          headerShown: navigation.getParam('showHeader', false),
-        }),
-  },
- 
-    REGISTER:{
-    screen:Register,
-    navigationOptions: ({ navigation }) => ({
-        headerShown: navigation.getParam('showHeader', false),
-      }),   
-}, 
-   
-
-PURCHASE:{
-  screen:Purchase,
-  navigationOptions: ({ navigation }) => ({
-      headerShown: navigation.getParam('showHeader', false),
+      headerShown: navigation.getParam("showHeader", false),
     }),
-},
-
-
- 
- 
-  SEARCH:{
-    screen:Search,
-    navigationOptions: ({ navigation }) => ({
-        headerShown: navigation.getParam('showHeader', false),
-      }),
-},
-    
-
- Forgetpassword:{ 
-      screen:forgetpassword,
-      navigationOptions: ({ navigation }) => ({
-          headerShown: navigation.getParam('showHeader', false),
-        }),
   },
-   
+  SearchCourse: {
+    screen: CoursesScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
 
-    
-}
+  SIGNIN: {
+    screen: Login,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+  SEARCH: {
+    screen: Search,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+
+  // PROFILE: {
+  //   screen: Profile,
+  //   navigationOptions: ({ navigation }) => ({
+  //     headerShown: navigation.getParam("showHeader", false),
+  //   }),
+  // },
+
+  REGISTER: {
+    screen: Register,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+
+  PURCHASE: {
+    screen: Purchase,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+
+  SEARCH: {
+    screen: Search,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+
+  Forgetpassword: {
+    screen: forgetpassword,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+};
 const HomeStack=createStackNavigator(screens);
 
 
