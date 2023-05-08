@@ -105,6 +105,7 @@ export default function Home({ navigation }) {
   }
 //////////////////////////////////// courses  //////////
   const dummyData = {
+    
     courses_list_1: [
       {
         id: 1,

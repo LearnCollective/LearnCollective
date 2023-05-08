@@ -4,6 +4,7 @@ import dummyData from "../constrants/dummyData";
 import { Image } from "react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
 const CoursesScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const coursesList = dummyData.categories;
@@ -13,7 +14,7 @@ const CoursesScreen = ({ navigation }) => {
   };
 
   const filteredCourses = coursesList.filter((course) =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
+    course.title.toLowerCase().startsWith(searchQuery.toLowerCase())
   );
 
   return (
@@ -34,34 +35,47 @@ const CoursesScreen = ({ navigation }) => {
           />
         </View>
         <TouchableOpacity
-          // onPress={() => {
-          //   setSearchQuery("");
-          //   setFilteredCourses([]);
-          // }}
+          onPress={() => setSearchQuery("")}
           style={{ marginLeft: 10 }}
         >
           <Text style={{ color: "#555", fontSize: 16 }}>Clear</Text>
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={filteredCourses}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.container}
-            // onPress={() => {
-            //   const navigation = useNavigation();
-            //   navigation.navigate("CourseDetails", { courseId: item.id });
-            // }}
+      {searchQuery ? (
+        filteredCourses.length > 0 ? (
+          <FlatList
+            data={filteredCourses}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.container}
+                onPress={() => {
+                  const navigation = useNavigation();
+                  navigation.navigate("CourseDetails", { courseId: item.id });
+                }}
+              >
+                <Image source={item.thumbnail} style={styles.image} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.description}>{item.description}</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+        ) : (
+          <View
+            style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
           >
-            <Image source={item.thumbnail} style={styles.image} />
-            <View style={styles.textContainer}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.description}>{item.description}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+            <Text style={{ fontSize: 16 }}>Sorry, no courses found</Text>
+          </View>
+        )
+      ) : (
+        <View
+          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
+        >
+          <Text style={{ fontSize: 16 }}>Search about courses</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -73,7 +87,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#FFFFFF",
     shadowColor: "#000000",
     shadowOpacity: 0.2,
     shadowRadius: 5,
@@ -102,6 +116,5 @@ const styles = StyleSheet.create({
     color: "#888888",
   },
 });
-
 
 export default CoursesScreen;
