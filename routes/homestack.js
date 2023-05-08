@@ -9,8 +9,11 @@ import OnboardingScreen from "../screens/OnboardingScreen";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
 import Purchase from "../screens/Purchase";
+import Cart from "../screens/Cart";
 
 const screens={   
+  
+    
    Home:{
         screen:Home,
         navigationOptions: ({ navigation }) => ({
@@ -18,8 +21,13 @@ const screens={
           }), 
         },
 
-  
- 
+      //  Cart:{
+        //  screen:Cart,
+          //navigationOptions: ({ navigation }) => ({
+            //  headerShown: navigation.getParam('showHeader', false),
+            //}), 
+          //},
+       
 
   SIGNIN:{
     screen:Login,
