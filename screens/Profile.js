@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, Image, ImageBackground, Dimensions, ScrollView, TouchableOpacity, Modal, TouchableHighlight } from "react-native";
 import { signOut } from "firebase/auth";
 import { globalstyles } from "../styles/global";
 import { CheckBox, Input } from 'react-native-elements';
 import { auth, db } from "../firebase/firebase_config";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, onSnapshot, query, collection } from "firebase/firestore";
 
 import { Avatar, Caption } from "react-native-paper";
 import { Formik } from 'formik';
@@ -27,6 +27,7 @@ import {
 import { LineDivider } from "../components";
 import { background, backgroundColor, flex, height } from "styled-system";
 
+
 const loginValidationSchema = yup.object().shape({
     name: yup.string().matches(/(\w.+\s).+/, 'Enter at least 2 names').required('Full name is required'),
     date: yup.string()
@@ -46,12 +47,22 @@ export default function Profile({ navigation }) {
     const [click, setClick] = useState(true);
     const [modelVisible, setModelVisible] = useState(false);
     const [image, setImage] = useState(null);
-
+    const [wallet, setWallet] = useState();
 
     const presshandler = () => {
         navigation.navigate('Home');
 
     }
+    function subscribe(callback) {
+        const unsubscribe = onSnapshot(query(collection(db, "users")), (snapshot) => {
+            const source = snapshot.metadata.hasPendingWrites ? "Local" : "Server";
+            snapshot.docChanges().forEach((change) => {
+                if (callback) callback({ change, snapshot });
+            });
+        });
+        return unsubscribe;
+    }
+
 
     const edit = () => {
         setView(false);
@@ -72,6 +83,7 @@ export default function Profile({ navigation }) {
             setName(data.name);
             setDate(data.birthdate);
             setImage(data.photo);
+            setWallet(data.wallet)
         } else {
             // docSnap.data() will be undefined in this case
             console.log("No such document!");
@@ -97,6 +109,17 @@ export default function Profile({ navigation }) {
             phone: Uphone,
             birthdate: UDate,
             photo: image,
+
+        });
+    }
+
+    const Upwallte = async () => {
+        const washingtonRef = doc(db, "users", auth.currentUser.uid);
+        // Set the "capital" field of the city 'DC'
+        console.log(wallet)
+        let newwallet = wallet - 100
+        await updateDoc(washingtonRef, {
+            wallet: newwallet
 
         });
     }
@@ -144,8 +167,21 @@ export default function Profile({ navigation }) {
             setImage(result.assets[0].uri);
         }
     };
+    // const buy = () => {
+    //     // setWallet(wallet - 100)
+    //     Upwallte();
+    // }
+    useEffect(() => {
+        const unsubscribe = subscribe(({ change, snapshot }) => {
+            if (change.type === "added" || change.type === "modified" || change.type === "removed") {
+                ReadData();
+            }
+        });
 
-
+        return () => {
+            unsubscribe();
+        };
+    }, []);
     return (
 
         <View style={styles.container} >
@@ -153,7 +189,7 @@ export default function Profile({ navigation }) {
             {view ? (
                 <View>
                     <TouchableOpacity onPress={presshandler} >
-                        <Ionicons name='arrow-back' size={25} top={-40} right={10} color='white' />
+                        <Ionicons name='arrow-back' size={25} top={50} right={40} color='white' />
                     </TouchableOpacity>
                     <View>
                         <Text style={{ marginTop: 20, fontSize: 30, color: 'white', fontStyle: 'italic', textAlign: 'center' }}>Profile Page</Text>
@@ -260,11 +296,31 @@ export default function Profile({ navigation }) {
                             }}>{phone}</Text>
                         </View>
 
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{
+                                color: '#47B5FF',
+                                marginLeft: -70,
+                                fontSize: 20,
+                                marginTop: 10,
+                                marginBottom: 10,
+                                paddingRight: 40,
+                                textAlign: 'left',
+                            }}> balance</Text>
+                            <Text style={{
+                                fontSize: 20,
+                                marginTop: 10,
+                                marginBottom: 10,
+
+                                textAlign: 'left',
+                                color: 'white',
+                            }}>{wallet}</Text>
+                        </View>
                     </View>
                     <LineDivider lineStyle={{ width: 200, backgroundColor: 'white' }} />
                     <View>
                         <TouchableOpacity onPress={signOuthandle}><Text style={{ margin: 10, marginTop: 40, color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>signOut</Text></TouchableOpacity>
                     </View>
+
 
                 </View >
             ) : (
