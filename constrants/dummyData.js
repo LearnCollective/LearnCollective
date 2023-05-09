@@ -56,7 +56,27 @@ const categories = [
   },
   {
     id: 11,
-    title: "Animation",
+    title: "hazem",
+    thumbnail: require("../assets/we.png"),
+  },
+  {
+    id: 12,
+    title: "amr",
+    thumbnail: require("../assets/we.png"),
+  },
+  {
+    id: 13,
+    title: "flutter",
+    thumbnail: require("../assets/we.png"),
+  },
+  {
+    id: 14,
+    title: "data science",
+    thumbnail: require("../assets/we.png"),
+  },
+  {
+    id: 15,
+    title: "photoshop",
     thumbnail: require("../assets/we.png"),
   },
 ];
@@ -140,31 +160,35 @@ const courses_list_2 = [
 ];
 
 const top_searches = [
-    {
-        id: 0,
-        label: "Sketch"
-    },
-    {
-        id: 1,
-        label: "Modeling"
-    },
-    {
-        id: 2,
-        label: "UI/UX"
-    },
-    {
-        id: 3,
-        label: "Web"
-    },
-    {
-        id: 4,
-        label: "Mobile"
-    },
-    {
-        id: 5,
-        label: "Animation"
-    },
-]
+  {
+    id: 0,
+    label: "dd",
+  },
+  {
+    id: 1,
+    label: "Modeling",
+  },
+  {
+    id: 2,
+    label: "UI/UX",
+  },
+  {
+    id: 3,
+    label: "Web",
+  },
+  {
+    id: 4,
+    label: "Mobile",
+  },
+  {
+    id: 5,
+    label: "Animation",
+  },
+  {
+    id: 6,
+    label: "lol",
+  },
+];
 
 const course_details = {
   id: 0,

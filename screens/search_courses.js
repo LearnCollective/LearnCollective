@@ -4,6 +4,7 @@ import dummyData from "../constrants/dummyData";
 import { Image } from "react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const CoursesScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,22 +19,24 @@ const CoursesScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+     <View style={{ flex: 1 }}>
       <View style={{ flexDirection: "row", alignItems: "center", margin: 10 }}>
-        <View style={{ flex: 1 }}>
-          <TextInput
-            placeholder="Search courses"
-            value={searchQuery}
-            onChangeText={handleSearch}
-            style={{
-              backgroundColor: "white",
-              padding: 10,
-              borderRadius: 5,
-              borderColor: "#ccc",
-              borderWidth: 1,
-            }}
-          />
-        </View>
+        <Icon name="search" size={20} color="#ccc" style={{ marginLeft: 10 ,margin: 10 }} />
+        <TextInput
+          placeholder="Search for Topics, Courses & Educators"
+          placeholderTextColor="gray"
+          value={searchQuery}
+          onChangeText={handleSearch}
+          style={{
+            backgroundColor: "white",
+            padding: 10,
+            borderRadius: 5,
+            borderColor: "#ccc",
+            borderWidth: 1,
+            flex: 1,
+            marginLeft: 10,
+          }}
+        />
         <TouchableOpacity
           onPress={() => setSearchQuery("")}
           style={{ marginLeft: 10 }}
@@ -49,10 +52,10 @@ const CoursesScreen = ({ navigation }) => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.container}
-                onPress={() => {
-                  const navigation = useNavigation();
-                  navigation.navigate("CourseDetails", { courseId: item.id });
-                }}
+                // onPress={() => {
+                //   const navigation = useNavigation();
+                //   navigation.navigate("CourseDetails", { courseId: item.id });
+                // }}
               >
                 <Image source={item.thumbnail} style={styles.image} />
                 <View style={styles.textContainer}>

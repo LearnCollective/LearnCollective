@@ -10,6 +10,7 @@ import Profile from "../screens/Profile";
 import Search from "../screens/Search";
 import Purchase from "../screens/Purchase";
 import CoursesScreen from "../screens/search_courses";
+import cardScreen from "../screens/add_to_card";
 
 const screens = {
   Home: {
@@ -18,39 +19,18 @@ const screens = {
       headerShown: navigation.getParam("showHeader", false),
     }),
   },
-  SearchCourse: {
-    screen: CoursesScreen,
-    navigationOptions: ({ navigation }) => ({
-      headerShown: navigation.getParam("showHeader", false),
-    }),
-  },
-
-  SIGNIN: {
-    screen: Login,
-    navigationOptions: ({ navigation }) => ({
-      headerShown: navigation.getParam("showHeader", false),
-    }),
-  },
   SEARCH: {
     screen: Search,
     navigationOptions: ({ navigation }) => ({
       headerShown: navigation.getParam("showHeader", false),
     }),
   },
-
-  // PROFILE: {
-  //   screen: Profile,
+  // cardScreen: {
+  //   screen: cardScreen,
   //   navigationOptions: ({ navigation }) => ({
   //     headerShown: navigation.getParam("showHeader", false),
   //   }),
   // },
-
-  REGISTER: {
-    screen: Register,
-    navigationOptions: ({ navigation }) => ({
-      headerShown: navigation.getParam("showHeader", false),
-    }),
-  },
 
   PURCHASE: {
     screen: Purchase,
@@ -59,8 +39,30 @@ const screens = {
     }),
   },
 
-  SEARCH: {
-    screen: Search,
+  //
+  // SIGNIN: {
+  //   screen: Login,
+  //   navigationOptions: ({ navigation }) => ({
+  //     headerShown: navigation.getParam("showHeader", false),
+  //   }),
+  // },
+
+  // SearchCourse: {
+  //   screen: CoursesScreen,
+  //   navigationOptions: ({ navigation }) => ({
+  //     headerShown: navigation.getParam("showHeader", false),
+  //   }),
+  // },
+
+  PROFILE: {
+    screen: Profile,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam("showHeader", false),
+    }),
+  },
+
+  REGISTER: {
+    screen: Register,
     navigationOptions: ({ navigation }) => ({
       headerShown: navigation.getParam("showHeader", false),
     }),
