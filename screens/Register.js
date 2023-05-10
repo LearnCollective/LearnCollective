@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, alert, TouchableOpacity, Button, Text, Item, ScrollView, View, TextInput, ImageBackground, Dimensions, Image, Alert } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth} from "../firebase/firebase_config";
+import { auth } from "../firebase/firebase_config";
 import { CheckBox, Input } from 'react-native-elements';
 import photo2 from '../assets/back.jpg'
 import { ListItem, SocialIcon } from 'react-native-elements';
@@ -14,14 +14,13 @@ import { doc, setDoc } from "firebase/firestore";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { marginTop, paddingBottom, width } from 'styled-system';
 
-
 const loginValidationSchema = yup.object().shape({
   fullname: yup.string().matches(/(\w.+\s).+/, 'Enter at least 2 names').required('Full name is required'),
   email: yup.string().email('Please enter valid email').required('Email Address is required'),
   dateofbirth: yup.string()
     .required('Date of Birth is required')
     .matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'Date of Birth must be a valid date in the format YYYY-MM-DD'),
- // phonenumber: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid').required('Phone Number is required'),
+  // phonenumber: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Phone number is not valid').required('Phone Number is required'),
   password: yup.string()
     .required('password is required').matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
@@ -36,6 +35,7 @@ export default function Register({ navigation }) {
   const [ShowPassword, setShowPassword] = useState(false);
   const [ShowconfirmPassword, setShowconfirmPassword] = useState(false);
   const [rememberMe, setrememberme] = useState(false);
+  const [wallet, setWallet] = useState(0);
 
 
   const press = () => {
@@ -52,7 +52,8 @@ export default function Register({ navigation }) {
       email: email,
       name: name,
       phone: phone,
-      birthdate: date
+      birthdate: date,
+      wallet: wallet
     });
   };
   // const auth = getAuth();
@@ -81,8 +82,8 @@ export default function Register({ navigation }) {
   const [count, setcont] = useState(0);
   const image = { uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBR9MAw997U9x7Vjx0uQ4HFmMW9MM8ftj1NA&usqp=CAU' };
 
-  const increment = () => {
-    setcont(count + 1);
+  const AdmimAdd = () => {
+    setWallet();
   };
 
   return (
@@ -186,7 +187,7 @@ export default function Register({ navigation }) {
                   <View style={{ flexDirection: 'row', alignItems: 'stretch' }}>
 
                     <Input onChangeText={handleChange('email')}
-                      onBlur={handleBlur('email')} 
+                      onBlur={handleBlur('email')}
                       underlineColorAndroid="#111"
 
                       value={values.email}

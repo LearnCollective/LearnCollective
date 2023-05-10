@@ -3,11 +3,11 @@ import photo from '../assets/sora.jpg'
 import photo2 from '../assets/we.png'
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase_config";
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons';
 import { FlatList } from "react-native-gesture-handler";
-import { AntDesign } from '@expo/vector-icons'; 
-import { Ionicons } from '@expo/vector-icons'; 
-import {TextButton,LineDivider,HorizontalCoursesCard,CategoryCard,IconButton,VerticalCourseCard} from "../components";
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { TextButton, LineDivider, HorizontalCoursesCard, CategoryCard, IconButton, VerticalCourseCard } from "../components";
 
 // import {COLORS}
 
@@ -30,7 +30,7 @@ import { backgroundColor, padding } from "styled-system";
 
 
 export default function Home({ navigation }) {
-  
+
   const signOuthandle = () => {
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -44,24 +44,24 @@ export default function Home({ navigation }) {
     <Icon name='rowing' />
 
   }
-  const Section=({containerStyle,title,onpress,children})=>{
-    return(
-      <View style={{...containerStyle}}>
-        <View style={{flexDirection:'row',paddingHorizontal:10}}>
-          <Text style={{flex:1,fontWeight:'bold',fontSize:20,color:'white'}}>
+  const Section = ({ containerStyle, title, onpress, children }) => {
+    return (
+      <View style={{ ...containerStyle }}>
+        <View style={{ flexDirection: 'row', paddingHorizontal: 10 }}>
+          <Text style={{ flex: 1, fontWeight: 'bold', fontSize: 20, color: 'white' }}>
             {title}
-            </Text>
-         {/* <TouchableOpacity style={{backgroundColor:'white',padding:6,borderRadius:10}}><Text style={{fontWeight:'bold'}}>See ALL</Text></TouchableOpacity> */}
-            <TextButton
-            
+          </Text>
+          {/* <TouchableOpacity style={{backgroundColor:'white',padding:6,borderRadius:10}}><Text style={{fontWeight:'bold'}}>See ALL</Text></TouchableOpacity> */}
+          <TextButton
+
             contentContainerStyle={{
-              width:80,
-              borderRadius:30,
-              backgroundColor:"white",
+              width: 80,
+              borderRadius: 30,
+              backgroundColor: "white",
             }}
             lable="See ALL"
             onPress={onpress}
-            />
+          />
 
         </View>
         {children}
@@ -81,45 +81,43 @@ export default function Home({ navigation }) {
     navigation.navigate('SEARCH');
 
   }
-  //const cart = () => {
-    //navigation.navigate('Cart');
+  const cart = () => {
+    navigation.navigate('Cart');
 
-  //}
-  
-  const renderHeder=()=>{
-    return(
-      <View
-      style={{flexDirection:'row',
-    marginTop:30,marginBottom:10,marginLeft:40,alignItems:'center'}}>
-      {/* Greeting */}
-      <View
-      style={{flex:1}}>
-        <View style={{flexDirection:'row'}}>
-        <TouchableOpacity onPress={presshandler}><AntDesign name="profile" size={24} color="white" style={{marginLeft:-20,marginTop:3}} /></TouchableOpacity>
-        <Text style={{fontSize:30,fontWeight:'bold',marginBottom:3,color:'white',marginLeft:7}}>Hello To LearnCollective</Text>
-       
-       
-       <TouchableOpacity onPress={cart}><AntDesign name="shoppingcart" size={40} color="white" style={{marginLeft:150,marginTop:10}} /></TouchableOpacity>
-       <TouchableOpacity> 
-        
-        <TouchableOpacity onPress={opress}><button onClick={() => handleClick(item) }style={{marginLeft:500}}>Add to cart </button></TouchableOpacity>
-              </TouchableOpacity>
-
-
-      
-       
-        </View><Text style={{color:'white',marginLeft:7}}> thursday ,10th Apr 2023 </Text>
-      </View>
-      {/* Notification */}
-      {/* <Ionicons style={{marginRight:40}} name="notifications" size={24} color="white" /> */}
-       <TouchableOpacity onPress={opress} style={{marginRight:40}}><FontAwesome name="search" size={24} color="white" /></TouchableOpacity>
-    </View>
-    )
-   
   }
-//////////////////////////////////// courses  //////////
+
+  const renderHeder = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 30, marginBottom: 10, marginLeft: 40, alignItems: 'center'
+        }}>
+        {/* Greeting */}
+        <View
+          style={{ flex: 1 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity onPress={presshandler}><AntDesign name="profile" size={24} color="white" style={{ marginLeft: -20, marginTop: 3 }} /></TouchableOpacity>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 3, color: 'white', marginLeft: 7 }}>Hello To LearnCollective</Text>
+
+
+            <TouchableOpacity onPress={cart}><AntDesign name="shoppingcart" top={40} left={10} size={30} color="white" /></TouchableOpacity>
+
+
+
+
+          </View><Text style={{ color: 'white', marginLeft: 7 }}> thursday ,10th Apr 2023 </Text>
+        </View>
+        {/* Notification */}
+        {/* <Ionicons style={{marginRight:40}} name="notifications" size={24} color="white" /> */}
+        <TouchableOpacity onPress={opress} style={{ marginRight: 40 }}><FontAwesome name="search" size={24} top={5} left={15} color="white" /></TouchableOpacity>
+      </View>
+    )
+
+  }
+  //////////////////////////////////// courses  //////////
   const dummyData = {
-    
+
     courses_list_1: [
       {
         id: 1,
@@ -129,7 +127,7 @@ export default function Home({ navigation }) {
         description: "Learn the fundamentals of computer science.",
         duration: "4 weeks",
         price: "$49.99"
-        
+
       },
       {
         id: 2,
@@ -140,7 +138,7 @@ export default function Home({ navigation }) {
         duration: "6 weeks",
         price: "$79.99"
       },
-      
+
       {
         id: 3,
         title: "Python",
@@ -150,12 +148,12 @@ export default function Home({ navigation }) {
         duration: "2 weeks",
         price: "$79.99"
       },
-      
+
       {
         id: 4,
         title: "React-Native",
         instructor: "Jane Smith",
-        
+
         image: require("../assets/we.png"),
         description: "Build web applications using HTML, CSS, and JavaScript.",
         duration: "3 weeks",
@@ -207,214 +205,218 @@ export default function Home({ navigation }) {
       {
         id: 1,
         name: "Introduction to Programming",
-        instructor :"Ahmed Hussieny",
+        instructor: "Ahmed Hussieny",
         description: "Learn the basics of programming with this introductory course",
         image: require("../assets/we.png"),
         thumbnail: "https://example.com/intro-to-programming-thumbnail.jpg",
         duration: "4 weeks",
         level: "Beginner",
         price: 49.99,
-        rating:4.9
+        rating: 4.9
       },
       {
         id: 2,
         name: "Data Science",
-        instructor :"Ahmed Hussieny",
+        instructor: "Ahmed Hussieny",
         description: "Explore the world of data science and learn how to analyze and interpret data",
         image: require("../assets/we.png"),
         thumbnail: "https://example.com/data-science-thumbnail.jpg",
         duration: "8 weeks",
         level: "Intermediate",
         price: 99.99,
-        rating:4.9
+        rating: 4.9
       },
       {
         id: 3,
         name: "Web Development",
-        instructor :"Ahmed Hussieny",
+        instructor: "Ahmed Hussieny",
         description: "Master the skills needed to build dynamic web applications",
         image: require("../assets/we.png"),
         thumbnail: "https://example.com/web-development-thumbnail.jpg",
         duration: "12 weeks",
         level: "Advanced",
         price: 149.99,
-        rating:4.9
+        rating: 4.9
       }
     ]
-    
-    
+
+
   };
-///////////////////////////////////////////////////////////////
-  function renderStartLearning(){
-    return(
+  ///////////////////////////////////////////////////////////////
+  function renderStartLearning() {
+    return (
       <ImageBackground
-      source={require('../assets/back.jpg')}
-      style={{alignItems:'flex-start',
-        marginTop:10,
-        marginHorizontal:10,padding:20,color:'white'}}
-        
+        source={require('../assets/back.jpg')}
+        style={{
+          alignItems: 'flex-start',
+          marginTop: 10,
+          marginHorizontal: 10, padding: 20, color: 'white'
+        }}
+
         imageStyle={{
-          borderRadius:20,
+          borderRadius: 20,
         }}>
-          {/* INfo */}
-          <View>
-            <Text style={{color:'black',fontSize:16}}>
-              HOW To
-            </Text>
-            <Text style={{color:'black',fontWeight:'bold',fontSize:15}}>
-              be good Developer
-            </Text>
-            <Text style={{marginTop:20,color:'black',fontWeight:'bold'}}>
-              By Ahmed Hussieny
-            </Text>
-          </View>
-
-          {/* Image */}
-          <Image
-          source={require('../assets/we.png')}
-          style={{width:"100%",height:170,marginTop:10}}/>
-
-          {/* Button */}
-          <TouchableOpacity style={{
-            marginTop:4,
-            height:30,
-            paddingHorizontal:10,
-            borderRadius:20,
-            alignItems:'center',
-            justifyContent:'center',backgroundColor:'black',}}
-            >
-          <Text style={{
-            color:'white',
-        fontSize:20,fontStyle:'italic'}}
-        >
-          Start learning
+        {/* INfo */}
+        <View>
+          <Text style={{ color: 'black', fontSize: 16 }}>
+            HOW To
           </Text>
-          </TouchableOpacity>
-         
+          <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 15 }}>
+            be good Developer
+          </Text>
+          <Text style={{ marginTop: 20, color: 'black', fontWeight: 'bold' }}>
+            By Ahmed Hussieny
+          </Text>
+        </View>
+
+        {/* Image */}
+        <Image
+          source={require('../assets/we.png')}
+          style={{ width: "100%", height: 170, marginTop: 10 }} />
+
+        {/* Button */}
+        <TouchableOpacity style={{
+          marginTop: 4,
+          height: 30,
+          paddingHorizontal: 10,
+          borderRadius: 20,
+          alignItems: 'center',
+          justifyContent: 'center', backgroundColor: 'black',
+        }}
+        >
+          <Text style={{
+            color: 'white',
+            fontSize: 20, fontStyle: 'italic'
+          }}
+          >
+            Start learning
+          </Text>
+        </TouchableOpacity>
+
 
       </ImageBackground>
     )
   }
-  const renderCourses=()=>{
-    return(
+  const renderCourses = () => {
+    return (
       <FlatList
-      horizontal
-      data={dummyData.courses_list_1}
-     listkey="Courses"
-     keyExtractor={item=>`Courses-${item.id}`}
-     showsHorizontalScrollIndicator={false}
-     contentContainerStyle={{marginTop:10}
-      
-     }
-     
-     renderItem={({item,index})=>(
-      <VerticalCourseCard
-      containerStyle={{marginLeft:index==0?10:20}}
-      course={item}
-      />
-     )}/>
-    )
-  }
-  function renderCategories(){
-    return(
-      <Section
-       title="Categories"
-       >
-        <FlatList
         horizontal
-        data={dummyData.categories}
-        listkey="categories"
-        keyExtractor={item=>`categories-${item.id}`}
+        data={dummyData.courses_list_1}
+        listkey="Courses"
+        keyExtractor={item => `Courses-${item.id}`}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          marginTop:10
-        }}
-        renderItem={({item,index})=>(
-          <CategoryCard 
-          category={item}
-          containerStyle={{
-            marginLeft:index==0?10:20,
-            arginRight:index==dummyData.categories.length-1?10:0
-          }}
-      />
-     )}
-  />
-       </Section>
+        contentContainerStyle={{ marginTop: 10 }
+
+        }
+
+        renderItem={({ item, index }) => (
+          <VerticalCourseCard
+            containerStyle={{ marginLeft: index == 0 ? 10 : 20 }}
+            course={item}
+          />
+        )} />
     )
   }
-  const renderPopularCourses=()=>{
-    return(
+  function renderCategories() {
+    return (
+      <Section
+        title="Categories"
+      >
+        <FlatList
+          horizontal
+          data={dummyData.categories}
+          listkey="categories"
+          keyExtractor={item => `categories-${item.id}`}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            marginTop: 10
+          }}
+          renderItem={({ item, index }) => (
+            <CategoryCard
+              category={item}
+              containerStyle={{
+                marginLeft: index == 0 ? 10 : 20,
+                arginRight: index == dummyData.categories.length - 1 ? 10 : 0
+              }}
+            />
+          )}
+        />
+      </Section>
+    )
+  }
+  const renderPopularCourses = () => {
+    return (
       <Section title="Popular Courses"
-      containerStyle={{
-        marginTop:30
-      }}
-      
+        containerStyle={{
+          marginTop: 30
+        }}
+
 
       >
         <FlatList
-        data={dummyData.PopularCourses}
-        listkey="PopularCourses" 
-        scrollEnabled={false}
-        keyExtractor={item=>`PopularCourses-${item.id}`}
-       
-        contentContainerStyle={{
-          marginTop:5,
-          paddingHorizontal:10,
-        }}
-        renderItem={({item,index})=>(
-          <HorizontalCoursesCard 
-          course={item}
-          containerStyle={{
-            marginLeft:index==0?10:20,
-            arginRight:index==dummyData.PopularCourses.length-1?10:0
-          }}
-      />
-     )}
-     ItemSeparatorComponent={()=>(
-      <LineDivider
-      lineStyle={{backgroundColor:'white',marginBottom:20}}/>
+          data={dummyData.PopularCourses}
+          listkey="PopularCourses"
+          scrollEnabled={false}
+          keyExtractor={item => `PopularCourses-${item.id}`}
 
-     ) }
-    />
-    </Section>
+          contentContainerStyle={{
+            marginTop: 5,
+            paddingHorizontal: 10,
+          }}
+          renderItem={({ item, index }) => (
+            <HorizontalCoursesCard
+              course={item}
+              containerStyle={{
+                marginLeft: index == 0 ? 10 : 20,
+                arginRight: index == dummyData.PopularCourses.length - 1 ? 10 : 0
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <LineDivider
+              lineStyle={{ backgroundColor: 'white', marginBottom: 20 }} />
+
+          )}
+        />
+      </Section>
     )
   }
   //002147
   //0047
   return (
-    <View 
-    style={{
-      flex:1,backgroundColor:'#002147',
-    }}> 
-    {/* Header */}
-    {renderHeder()}
+    <View
+      style={{
+        flex: 1, backgroundColor: '#002147',
+      }}>
+      {/* Header */}
+      {renderHeder()}
 
-    {/* Contant */}
+      {/* Contant */}
 
-    <ScrollView
+      <ScrollView
         contentContainerStyle={{
-          paddingBottom:150,
+          paddingBottom: 150,
         }}
         showsVerticalScrollIndicator={false}
-        >
-          {renderStartLearning()}
+      >
+        {renderStartLearning()}
 
 
-            {/* Courses */}
+        {/* Courses */}
 
-            {renderCourses()}
-           <LineDivider
-           lineStyle={{marginVertical:10}}
-           />
+        {renderCourses()}
+        <LineDivider
+          lineStyle={{ marginVertical: 10 }}
+        />
 
-           {/* categories */}
-           {renderCategories()}
+        {/* categories */}
+        {renderCategories()}
 
-           {/* Popular Courses */}
-           {renderPopularCourses()}
+        {/* Popular Courses */}
+        {renderPopularCourses()}
 
-    </ScrollView>
-    
+      </ScrollView>
+
     </View>
 
 
@@ -448,7 +450,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   }
-});  {/* <ImageBackground style={styles.photo} source={photo2} >
+}); {/* <ImageBackground style={styles.photo} source={photo2} >
         <Text style={styles.text}>Welcome</Text>
         <Button onPress={signOuthandle} title="SignOut"></Button>
       </ImageBackground> */}
