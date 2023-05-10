@@ -6,15 +6,27 @@ const icon = require('../assets/time.png');
 const star = require('../assets/star.png');
 import Iconlable from "./iconlable";
 
-import { AntDesign } from '@expo/vector-icons';
-const HorizontalCoursesCard = ({ containerStyle, course }) => {
-    return (
+
+import { AntDesign } from '@expo/vector-icons'; 
+const HorizontalCoursesCard = ({containerStyle,course , onPress})=>{
+    return(
         <TouchableOpacity
+        style={{
+            flexDirection:'row',
+            ...containerStyle
+        }}
+        onPress={onPress}
+        >
+
+            {/* th */}
+            <ImageBackground 
+            source={course.image}
+// {/* >>>>>>> Stashed changes */}
             style={{
                 flexDirection: 'row',
                 ...containerStyle
             }}
-        >
+        />
             {/* th */}
             <ImageBackground
                 source={course.image}

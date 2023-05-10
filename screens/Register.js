@@ -39,7 +39,7 @@ export default function Register({ navigation }) {
 
 
   const press = () => {
-    navigation.navigate('SIGNIN');
+    navigation.navigate('Login');
   }
   const press2 = () => {
     navigation.navigate('Home');
@@ -103,7 +103,7 @@ export default function Register({ navigation }) {
             storeDataBase(values.email, values.fullname, values.phonenumber, values.dateofbirth);
 
             console.log(values.email)
-            navigation.navigate('Onboard')
+            navigation.navigate('TAB');
 
             // {
             //   paramKey: values.fullname,

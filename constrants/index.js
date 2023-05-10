@@ -1,11 +1,11 @@
-import constants from "../../../proR/LCRN17-online-learning-app-starter/constants/constants";
+// import constants from "../../../proR/LCRN17-online-learning-app-starter/constants/constants";
 import theme, { COLORS, SIZES, FONTS, darkTheme, lightTheme, selectedTheme } from "./theme";
 import images from "./images";
 import icons from "./icons";
 import dummyData from "./dummyData"
 
 export {
-    constants,
+    // constants,
     theme,
     COLORS,
     SIZES,
