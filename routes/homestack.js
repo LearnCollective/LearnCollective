@@ -11,9 +11,25 @@ import Search from "../screens/Search";
 import Purchase from "../screens/Purchase";
 import Cart from "../screens/Cart";
 
-const screens = {
-  Home: {
-    screen: Home,
+const screens={   
+  
+    
+   Home:{
+        screen:Home,
+        navigationOptions: ({ navigation }) => ({
+            headerShown: navigation.getParam('showHeader', false),
+          }), 
+        },
+
+  Cart: {
+    screen: Cart,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+  },
+
+  SIGNIN: {
+    screen: Login,
     navigationOptions: ({ navigation }) => ({
       headerShown: navigation.getParam('showHeader', false),
     }),
