@@ -1,9 +1,21 @@
-import React from "react";
+import React,{useState} from "react";
 import { Shadow } from "react-native-shadow-2";
+
 import { FlatList } from "react-native-gesture-handler";
 import { TextButton,CategoryCard } from "../components";
 import { FontAwesome } from '@expo/vector-icons'; 
+import { StyleSheet, TouchableOpacity,View, Image,Dimensions,Text,TextInput } from "react-native";
+import { dummyData } from "../constrants";
 import { AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+
+// import {
+//   AntDesign,
+//   FontAwesome5,
+//   Ionicons,
+//   MaterialCommunityIcons,
+//   Entypo,
+// } from "@expo/vector-icons";
+
 
 import Animated ,{
     Extrapolate
@@ -12,75 +24,87 @@ import Animated ,{
 ,useAnimatedStyle
 ,useSharedValue
 } from "react-native-reanimated";
- 
+import {useNavigation} from "@react-navigation/native"
 
-import { Text, View, ImageBackground,Image,TouchableOpacity, Dimensions, TextInput } from "react-native";
-export default function Search({navigation}) {
+// import { Text, View, ImageBackground,Image,TouchableOpacity, Dimensions, TextInput } from "react-native";
+export default function Search() {
+    const navigation =useNavigation();
     const presshandler = () => {
         navigation.navigate('Home');
     
       }
+      
+      const [searchQuery, setSearchQuery] = useState("");
+  const coursesList = dummyData.categories;
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredCourses = coursesList.filter((course) =>
+    course.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
    
-    const dummyData = {
+    // const dummyData = {
     
-               top_searches :[
-        {
-            id: 0,
-            label: "Sketch"
-        },
-        {
-            id: 1,
-            label: "Modeling"
-        },
-        {
-            id: 2,
-            label: "UI/UX"
-        },
-        {
-            id: 3,
-            label: "Web"
-        },
-        {
-            id: 4,
-            label: "Mobile"
-        },
-        {
-            id: 5,
-            label: "Animation"
-        },
-    ],categories :[
-            {
-                id: 0,
-                name: "Mobile Design",
-                image: require('../assets/we.png')
-            },
-            {
-                id: 1,
-                name: "3D Modeling",
-                image: require('../assets/we.png')
-            },
-            {
-                id: 2,
-                name: "Web Designing",
-                image: require('../assets/we.png')
-            },
-            {
-                id: 3,
-                name: "Illustrations",
-                image: require('../assets/we.png')
-            },
-            {
-                id: 4,
-                name: "Drawing",
-                image: require('../assets/we.png')
-            },
-            {
-                id: 5,
-                name: "Animation",
-                image: require('../assets/we.png')
-            }
-        ]
-    }
+    //            top_searches :[
+    //     {
+    //         id: 0,
+    //         label: "Sketch"
+    //     },
+    //     {
+    //         id: 1,
+    //         label: "Modeling"
+    //     },
+    //     {
+    //         id: 2,
+    //         label: "UI/UX"
+    //     },
+    //     {
+    //         id: 3,
+    //         label: "Web"
+    //     },
+    //     {
+    //         id: 4,
+    //         label: "Mobile"
+    //     },
+    //     {
+    //         id: 5,
+    //         label: "Animation"
+    //     },
+    // ],categories :[
+    //         {
+    //             id: 0,
+    //             name: "Mobile Design",
+    //             image: require('../assets/we.png')
+    //         },
+    //         {
+    //             id: 1,
+    //             name: "3D Modeling",
+    //             image: require('../assets/we.png')
+    //         },
+    //         {
+    //             id: 2,
+    //             name: "Web Designing",
+    //             image: require('../assets/we.png')
+    //         },
+    //         {
+    //             id: 3,
+    //             name: "Illustrations",
+    //             image: require('../assets/we.png')
+    //         },
+    //         {
+    //             id: 4,
+    //             name: "Drawing",
+    //             image: require('../assets/we.png')
+    //         },
+    //         {
+    //             id: 5,
+    //             name: "Animation",
+    //             image: require('../assets/we.png')
+    //         }
+    //     ]
+    // }
     // dummyData={
     //     top_searches :[
     //     {
@@ -225,6 +249,7 @@ export default function Search({navigation}) {
             }}
             renderItem={({item,index})=>(
                 <CategoryCard
+                SharedElementPrefix="Search"
 
                 category={item}
                 containerStyle={{
@@ -235,6 +260,8 @@ export default function Search({navigation}) {
                     ,marginLeft:(index+1)%2==0?4:7
                      
                 }}
+                onPress={()=>navigation.navigate("CourseListing",{category:item,
+                    SharedElementPrefix:"SEARCH"})}
             
         
             />
@@ -244,56 +271,106 @@ export default function Search({navigation}) {
             </View>
         )
     }
-function renderSearchbar(){
-    // const inputRange=[0,55];
-    // // const searchBarAnimatedStyle = useAnimatedStyle(()=>{
-    // //     height:interpolate(scrollY.value,inputRange,[55,0],Extrapolate.CLAMP)
-    // // })
+    function renderSearchbar() {
+        // const inputRange=[0,55];
+        // // const searchBarAnimatedStyle = useAnimatedStyle(()=>{
+        // //     height:interpolate(scrollY.value,inputRange,[55,0],Extrapolate.CLAMP)
+        // // })
     
-    return(
-    <Animated.View
-    style={{
-        position:'absolute',
-        alignItems:'center',
-        top:30,
-        left:0,
-        right:0,
-        paddingHorizontal:10,
-        hight:50
-}}
-    >
-        <Shadow>
-            <View style={{
-                flex:1,
-                flexDirection:'row',
-                alignItems:'center',
-               hight:50,
-                width:380,
-                paddingHorizontal:10,
-                borderRadius:5,
-                backgroundColor:'white'
+        return (
+          <Animated.View
+            style={{
+              position: "absolute",
+              alignItems: "center",
+              top: 30,
+              left: 0,
+              right: 0,
+              paddingHorizontal: 10,
+              hight: 50,
             }}
-            >
-                <View style={{margin:10}}>
-                <FontAwesome name="search" size={24 } color="black" />
-                </View>
-
-                <TextInput style={{
-                    flex:1,
-                    marginLeft:5,
+          >
+            <Shadow>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  hight: 50,
+                  width: 380,
+                  paddingHorizontal: 10,
+                  borderRadius: 5,
+                  backgroundColor: "white",
                 }}
-                // value=""
-                placeholder="Search for Topics ,Courses & Educators"
-                placeholderTextColor='gray'
-               />
-
-                
-
-            </View>
-        </Shadow>
-
-    </Animated.View>
-)}
+              >
+                <View style={{ margin: 10 }}>
+                  <FontAwesome name="search" size={24} color="black" />
+                </View>
+    
+                <TextInput
+                  style={{
+                    flex: 1,
+                    marginLeft: 5,
+                  }}
+                  // value=""
+                  value={searchQuery}
+                  onChangeText={handleSearch}
+                  placeholder="Search for Topics ,Courses & Educators"
+                  placeholderTextColor="gray"
+                />
+                <TouchableOpacity
+                  onPress={() => setSearchQuery("")}
+                  style={{ marginLeft: 10 }}
+                >
+                  <Text style={{ color: "#555", fontSize: 16 }}>Clear</Text>
+                </TouchableOpacity>
+              </View>
+              {searchQuery ? (
+                filteredCourses.length > 0 ? (
+                  <FlatList
+                    data={filteredCourses}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={styles.container}
+                        // onPress={() => {
+                        //   const navigation = useNavigation();
+                        //   navigation.navigate("CourseDetails", { courseId: item.id });
+                        // }}
+                      >
+                        <Image source={item.thumbnail} style={styles.image} />
+                        <View style={styles.textContainer}>
+                          <Text style={styles.title}>{item.title}</Text>
+                          <Text style={styles.description}>{item.description}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    )}
+                  />
+                ) : (
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flex: 1,
+                    }}
+                  >
+                    <Text style={{ fontSize: 16 }}>Sorry, no courses found</Text>
+                  </View>
+                )
+              ) : (
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flex: 1,
+                  }}
+                >
+                  <Text style={{ fontSize: 16,color:'white' }}>Search about courses</Text>
+                </View>
+              )}
+            </Shadow>
+          </Animated.View>
+        );
+      }
 
     return (
 
@@ -335,3 +412,40 @@ function renderSearchbar(){
        
     );
 }
+const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginHorizontal: 10,
+      marginVertical: 5,
+      padding: 10,
+      borderRadius: 10,
+      backgroundColor: "#C9C2C2",
+      shadowColor: "#000000",
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
+      shadowOffset: {
+        width: 0,
+        height: 3,
+      },
+      elevation: 5,
+    },
+    image: {
+      width: 100,
+      height: 100,
+      borderRadius: 10,
+      marginRight: 10,
+    },
+    textContainer: {
+      flex: 1,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: "bold",
+      marginBottom: 5,
+    },
+    description: {
+      fontSize: 14,
+      color: "#888888",
+    },
+  });
