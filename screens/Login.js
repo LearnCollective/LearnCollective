@@ -28,7 +28,7 @@ export default function Login({ navigation }) {
   const [ShowPassword, setShowPassword] = useState(false);
   const [rememberMe, setrememberme] = useState(false);
   const press = () => {
-    navigation.navigate('REGISTER');
+    navigation.navigate('Register');
   }
   const press2 = () => {
     navigation.navigate('Forgetpassword');
@@ -56,7 +56,7 @@ export default function Login({ navigation }) {
             const user = userCredential.user;
             // ...
 
-            navigation.push('Home');
+            navigation.push('TAB');
           })
           .catch((error) => {
             const errorCode = error.code;

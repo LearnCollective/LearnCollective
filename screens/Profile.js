@@ -50,7 +50,7 @@ export default function Profile({ navigation }) {
     const [wallet, setWallet] = useState();
 
     const presshandler = () => {
-        navigation.navigate('Home');
+        navigation.goBack();
 
     }
     function subscribe(callback) {
@@ -94,7 +94,7 @@ export default function Profile({ navigation }) {
     const signOuthandle = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigation.navigate('SIGNIN');
+            navigation.navigate('Login');
             console.log()
         }).catch((error) => {
             // An error happened.
