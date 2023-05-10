@@ -21,16 +21,15 @@ const screens={
           }), 
         },
 
-      //  Cart:{
-        //  screen:Cart,
-          //navigationOptions: ({ navigation }) => ({
-            //  headerShown: navigation.getParam('showHeader', false),
-            //}), 
-          //},
-       
+  Cart: {
+    screen: Cart,
+    navigationOptions: ({ navigation }) => ({
+      headerShown: navigation.getParam('showHeader', false),
+    }),
+  },
 
-  SIGNIN:{
-    screen:Login,
+  SIGNIN: {
+    screen: Login,
     navigationOptions: ({ navigation }) => ({
         headerShown: navigation.getParam('showHeader', false),
       }),
@@ -49,9 +48,9 @@ const screens={
           headerShown: navigation.getParam('showHeader', false),
         }),
   },
- 
-    REGISTER:{
-    screen:Register,
+
+SEARCH: {
+    screen: Search,
     navigationOptions: ({ navigation }) => ({
         headerShown: navigation.getParam('showHeader', false),
       }),   
