@@ -1,5 +1,6 @@
 # LearnCollective
-LearnCollective_First
+- LearnCollective_First
+# Team Members
 ## Ahmed Hussieny
 ## Mena Magdy
 ## Hazem Amr
