@@ -5,6 +5,7 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { AntDesign, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { shadow } from "styled-system";
 import * as Font from 'expo-font';
+import Login from "./Login";
 //import * as Progress from 'react-native-progress';
 const slides = [
   {
@@ -109,7 +110,7 @@ export default class OnboardingScreen extends React.Component {
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle} >
-        <AntDesign TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}
+        <AntDesign TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}
 
           name="checkcircle"
           color="white"
@@ -124,7 +125,7 @@ export default class OnboardingScreen extends React.Component {
   _renderSkipButton = () => {
     return (
       <View style={{ backgroundColor: 'white', borderRadius: 100, height: 40, width: 40, bottom: -.5, marginTop: 7 }}>
-        <MaterialCommunityIcons TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}
+        <MaterialCommunityIcons TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}
 
           name="skip-forward-outline"
           color="#002147"

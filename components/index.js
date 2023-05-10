@@ -5,10 +5,11 @@ import Iconlable from "./iconlable";
 import LineDivider from "./LineDivider";
 import CategoryCard from "./CategoryCard";
 import HorizontalCoursesCard from "./HorizontalCoursesCard";
+import IconLableButton from "./IconLableButton";
 
 export{
     IconButton
     ,TextButton,HorizontalCoursesCard
-    ,VerticalCourseCard,Iconlable,LineDivider,CategoryCard
+    ,VerticalCourseCard,Iconlable,LineDivider,CategoryCard,IconLableButton
     
 }
